@@ -6,6 +6,17 @@ import os.path as osp
 import time
 import warnings
 
+def setup_dist(world_size: int):
+    os.environ["RANK"] = "0"
+    os.environ["WORLD_SIZE"] = str(world_size)
+    os.environ["MASTER_ADDR"] = "0.0.0.0"
+    os.environ["MASTER_PORT"] = "26983"
+    for i in range(1, world_size):
+        if not os.fork():
+            os.environ["RANK"] = str(i)
+
+#setup_dist(world_size=3)
+
 import mmcv
 import torch
 import torch.distributed as dist
@@ -208,6 +219,10 @@ def main():
     cfg.seed = seed
     meta['seed'] = seed
     meta['exp_name'] = osp.basename(args.config)
+
+    # Check for embedded detector and adjust the model if so
+    if hasattr(cfg.model, 'detector') and hasattr(cfg, 'detector_standalone_model'):
+        cfg.model = cfg.detector_standalone_model
 
     model = build_detector(
         cfg.model,
