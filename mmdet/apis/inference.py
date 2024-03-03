@@ -31,6 +31,10 @@ def init_detector(config, checkpoint=None, device='cuda:0', cfg_options=None):
     """
     if isinstance(config, (str, Path)):
         config = mmcv.Config.fromfile(config)
+        # Check for embedded detector and adjust the model if so
+        if hasattr(config.model, 'detector') and hasattr(config, 'detector_standalone_model'):
+            config.model = config.detector_standalone_model
+        
     elif not isinstance(config, mmcv.Config):
         raise TypeError('config must be a filename or Config object, '
                         f'but got {type(config)}')
