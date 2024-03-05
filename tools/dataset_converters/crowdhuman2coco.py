@@ -42,7 +42,7 @@ def convert_crowdhuman(ann_dir, save_dir, mode='train'):
         mode (str): Convert train dataset or validation dataset. Options are
             'train', 'val'. Default: 'train'.
     """
-    assert mode in ['train', 'val']
+    assert mode in ['train', 'val', 'test']
 
     records = dict(img_id=1, ann_id=1)
     outputs = defaultdict(list)
@@ -94,6 +94,7 @@ def main():
     args = parse_args()
     convert_crowdhuman(args.input, args.output, mode='train')
     convert_crowdhuman(args.input, args.output, mode='val')
+    convert_crowdhuman(args.input, args.output, mode='test')
 
 
 if __name__ == '__main__':
