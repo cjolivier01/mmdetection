@@ -94,7 +94,7 @@ def main():
     args = parse_args()
     convert_crowdhuman(args.input, args.output, mode='train')
     convert_crowdhuman(args.input, args.output, mode='val')
-    convert_crowdhuman(args.input, args.output, mode='test')
+    #convert_crowdhuman(args.input, args.output, mode='test')
 
 
 if __name__ == '__main__':
