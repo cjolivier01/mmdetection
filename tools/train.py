@@ -38,7 +38,7 @@ def setup_dist(world_size: int):
         if not os.fork():
             os.environ["RANK"] = str(i)
 
-if True or "SLURM_JOB_NODELIST" in os.environ:
+if "SLURM_JOB_NODELIST" in os.environ:
     setup_dist(world_size=1)
 
 import mmcv
