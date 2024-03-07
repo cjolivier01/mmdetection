@@ -2,20 +2,44 @@
 import argparse
 import copy
 import os
+import re
 import os.path as osp
 import time
 import warnings
 
 def setup_dist(world_size: int):
-    os.environ["RANK"] = "0"
-    os.environ["WORLD_SIZE"] = str(world_size)
-    os.environ["MASTER_ADDR"] = "0.0.0.0"
+    def extract_first_hostname(slurm_node_list):
+        # Check for the simple case where there is no range
+        if "[" not in slurm_node_list and "]" not in slurm_node_list:
+            return slurm_node_list
+        print(f"SLURM_JOB_NODELIST={slurm_node_list}")
+        # Extract the base part of the node name and the range
+        base_part, range_part = re.match(r"([a-zA-Z0-9-]+)\[([0-9,-]+)\]", slurm_node_list).groups()
+        
+        # Handle ranges and individual numbers (split by comma first)
+        first_range = range_part.split(",")[0]
+        if "-" in first_range:
+            start = first_range.split("-")[0]
+        else:
+            start = first_range
+        # Reconstruct the first hostname
+        first_hostname = f"{base_part}{start}"
+        return first_hostname            
+    
+    #extract_first_hostname("mojo-26l-r202u[45,47]")
+    os.environ["RANK"] = os.environ.get("SLURM_PROCID", "0")
+    os.environ["LOCAL_RANK"] = os.environ.get("SLURM_LOCALID", "0")
+    os.environ["WORLD_SIZE"] = os.environ.get("SLURM_NTASKS", str(world_size))
+    os.environ["MASTER_ADDR"] = extract_first_hostname(os.environ.get("SLURM_JOB_NODELIST", "0.0.0.0"))
     os.environ["MASTER_PORT"] = "26983"
+    #os.environ["CUDA_VISIBLE_DEVICES"] = os.environ["LOCAL_RANK"]
+    print(f"Master: {os.environ['MASTER_ADDR']}")
     for i in range(1, world_size):
         if not os.fork():
             os.environ["RANK"] = str(i)
 
-#setup_dist(world_size=3)
+if True or "SLURM_JOB_NODELIST" in os.environ:
+    setup_dist(world_size=1)
 
 import mmcv
 import torch
