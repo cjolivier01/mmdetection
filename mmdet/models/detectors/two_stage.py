@@ -224,6 +224,8 @@ class TwoStageDetector(BaseDetector):
         """
 
         assert self.with_bbox, 'Bbox head must be implemented.'
+        if isinstance(batch_inputs, list):
+            batch_inputs = torch.stack(batch_inputs)
         x = self.extract_feat(batch_inputs)
 
         # If there are no pre-defined proposals, use RPN to get proposals
