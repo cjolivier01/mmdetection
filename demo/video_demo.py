@@ -2,6 +2,7 @@
 import argparse
 
 import cv2
+import torch
 import mmcv
 from mmcv.transforms import Compose
 from mmengine.utils import track_iter_progress
@@ -60,6 +61,8 @@ def main():
 
     for frame in track_iter_progress((video_reader, len(video_reader))):
         result = inference_detector(model, frame, test_pipeline=test_pipeline)
+        if torch.is_floating_point(result.pred_instances.labels):
+            result.pred_instances.labels = result.pred_instances.labels.to(torch.int64)
         visualizer.add_datasample(
             name='video',
             image=frame,
