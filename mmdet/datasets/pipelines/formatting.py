@@ -233,7 +233,7 @@ class DefaultFormatBundle:
             # `torch.permute()` followed by `torch.contiguous()`
             # Refer to https://github.com/open-mmlab/mmdetection/pull/9533
             # for more details
-            if not img.flags.c_contiguous:
+            if isinstance(img, np.ndarray) and not img.flags.c_contiguous:
                 img = np.ascontiguousarray(img.transpose(2, 0, 1))
                 img = to_tensor(img)
             else:
