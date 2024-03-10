@@ -1,6 +1,7 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import warnings
 from pathlib import Path
+import time
 
 import mmcv
 import numpy as np
@@ -14,6 +15,7 @@ from mmdet.datasets import replace_ImageToTensor
 from mmdet.datasets.pipelines import Compose
 from mmdet.models import build_detector
 
+from mmcv.utils.registry import dict_to_arg_string
 
 def init_detector(config, checkpoint=None, device='cuda:0', cfg_options=None):
     """Initialize a detector from config file.
@@ -157,9 +159,16 @@ def inference_detector(model, imgs):
             ), 'CPU inference with RoIPool is not supported currently.'
 
     # forward the model
-    with torch.no_grad():
-        results = model(return_loss=False, rescale=True, **data)
-
+    if True:
+        with torch.no_grad():
+            results = model(return_loss=False, rescale=True, **data)
+    else:
+        start_time = time.time()
+        for _ in range(50):
+            with torch.no_grad():
+                results = model(return_loss=False, rescale=True, **data)
+        duration = time.time() - start_time
+        print(f"\nmodel fps={50/duration}\n")
     if not is_batch:
         return results[0]
     else:

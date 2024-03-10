@@ -3,11 +3,13 @@ import copy
 import inspect
 import math
 import warnings
+from typing import Union
 
 import cv2
 import mmcv
 import numpy as np
 from numpy import random
+import torch
 
 from mmdet.core import BitmapMasks, PolygonMasks, find_inside_bboxes
 from mmdet.core.evaluation.bbox_overlaps import bbox_overlaps
@@ -25,6 +27,12 @@ try:
 except ImportError:
     albumentations = None
     Compose = None
+
+
+def is_float(t: Union[torch.Tensor, np.ndarray]) -> bool:
+    if isinstance(t, torch.Tensor):
+        return torch.is_floating_point(t)
+    return t.dtype.kind == 'f'
 
 
 @PIPELINES.register_module()
@@ -1853,7 +1861,7 @@ class RandomCenterCropPad:
 
     def __call__(self, results):
         img = results['img']
-        assert img.dtype == np.float32, (
+        assert is_float(img), (
             'RandomCenterCropPad needs the input image of dtype np.float32,'
             ' please set "to_float32=True" in "LoadImageFromFile" pipeline')
         h, w, c = img.shape
