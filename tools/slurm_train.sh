@@ -14,7 +14,9 @@ SRUN_ARGS=${SRUN_ARGS:-""}
 PY_ARGS=${@:5}
 
 PYTHONPATH="$(dirname $0)/..":$PYTHONPATH \
-srun -p ${PARTITION} \
+  MASTER_PORT="29500" \
+  NCCL_IB_DISABLE=1 \
+  srun -p ${PARTITION} \
     --job-name=${JOB_NAME} \
     -N ${NODES} \
     --ntasks-per-node=${GPUS_PER_NODE} \
