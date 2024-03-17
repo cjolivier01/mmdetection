@@ -29,7 +29,7 @@ def parse_brackets(s):
             lst.append(a)
         elif s[0] == '-':
             b, s = parse_int(s[1:])
-            lst.extend(range(a,b+1))
+            lst.extend(range(int(a),int(b)+1))
     assert len(s) > 0, f"Missing closing ']'"
 
 def parse_node(s):
