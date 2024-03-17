@@ -299,7 +299,7 @@ def main():
     meta['exp_name'] = osp.basename(args.config)
 
     # Check for embedded detector and adjust the model if so
-    if hasattr(cfg.model, 'detector') and hasattr(cfg, 'detector_standalone_model'):
+    if (not hasattr(cfg, 'model') or hasattr(cfg.model, 'detector')) and hasattr(cfg, 'detector_standalone_model'):
         cfg.model = cfg.detector_standalone_model
 
     model = build_detector(
