@@ -8,6 +8,7 @@ CONFIG=$3
 WORK_DIR=$4
 GPUS=${GPUS:-8}
 NODES=${NODES:-1}
+GRES_DPU=${GRES_DPU:-"--gres=dpu:1"}
 GPUS_PER_NODE=${GPUS_PER_NODE:-8}
 CPUS_PER_TASK=${CPUS_PER_TASK:-5}
 SRUN_ARGS=${SRUN_ARGS:-""}
@@ -23,6 +24,6 @@ PYTHONPATH="$(dirname $0)/..":$PYTHONPATH \
     --cpus-per-task=${CPUS_PER_TASK} \
     --kill-on-bad-exit=1 \
     --exclusive \
-    --gres=dpu:1 \
+    ${GRES_DPU} \
     ${SRUN_ARGS} \
     python -u tools/train.py ${CONFIG} --work-dir=${WORK_DIR} --auto-resume --launcher="slurm" ${PY_ARGS}
