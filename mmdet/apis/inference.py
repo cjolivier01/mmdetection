@@ -23,8 +23,6 @@ from ..registry import MODELS
 from ..structures import DetDataSample, SampleList
 from ..utils import get_test_pipeline_cfg
 
-from mmcv.utils.registry import dict_to_arg_string
-
 def init_detector(
     config: Union[str, Path, Config],
     checkpoint: Optional[str] = None,
