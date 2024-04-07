@@ -1,8 +1,10 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import os.path as osp
+from typing import Union
 
 import mmcv
 import numpy as np
+import torch
 import pycocotools.mask as maskUtils
 
 from mmdet.core import BitmapMasks, PolygonMasks
@@ -13,6 +15,13 @@ try:
 except ImportError:
     rgb2id = None
 
+
+def _to_float(t: Union[np.ndarray, torch.Tensor]):
+    if isinstance(t, torch.Tensor):
+        if not torch.is_floating_point(t):
+            return t.to(torch.float, non_blocking=True)
+        return t
+    return t.astype(np.float32)
 
 @PIPELINES.register_module()
 class LoadImageFromFile:
@@ -68,7 +77,7 @@ class LoadImageFromFile:
         img = mmcv.imfrombytes(
             img_bytes, flag=self.color_type, channel_order=self.channel_order)
         if self.to_float32:
-            img = img.astype(np.float32)
+            img = _to_float(img)
 
         results['filename'] = filename
         results['ori_filename'] = results['img_info']['filename']
@@ -108,7 +117,7 @@ class LoadImageFromWebcam(LoadImageFromFile):
 
         img = results['img']
         if self.to_float32:
-            img = img.astype(np.float32)
+            img = _to_float(img)
 
         results['filename'] = None
         results['ori_filename'] = None

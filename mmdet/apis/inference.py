@@ -1,6 +1,7 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import warnings
 from pathlib import Path
+import time
 
 import mmcv
 import numpy as np
@@ -14,6 +15,7 @@ from mmdet.datasets import replace_ImageToTensor
 from mmdet.datasets.pipelines import Compose
 from mmdet.models import build_detector
 
+from mmcv.utils.registry import dict_to_arg_string
 
 def init_detector(config, checkpoint=None, device='cuda:0', cfg_options=None):
     """Initialize a detector from config file.
@@ -31,6 +33,10 @@ def init_detector(config, checkpoint=None, device='cuda:0', cfg_options=None):
     """
     if isinstance(config, (str, Path)):
         config = mmcv.Config.fromfile(config)
+        # Check for embedded detector and adjust the model if so
+        if (not hasattr(config, 'model') or hasattr(config.model, 'detector')) and hasattr(config, 'detector_standalone_model'):
+            config.model = config.detector_standalone_model
+        
     elif not isinstance(config, mmcv.Config):
         raise TypeError('config must be a filename or Config object, '
                         f'but got {type(config)}')
@@ -118,7 +124,7 @@ def inference_detector(model, imgs):
     cfg = model.cfg
     device = next(model.parameters()).device  # model device
 
-    if isinstance(imgs[0], np.ndarray):
+    if isinstance(imgs[0], (np.ndarray, torch.Tensor)):
         cfg = cfg.copy()
         # set loading pipeline type
         cfg.data.test.pipeline[0].type = 'LoadImageFromWebcam'
@@ -129,7 +135,7 @@ def inference_detector(model, imgs):
     datas = []
     for img in imgs:
         # prepare data
-        if isinstance(img, np.ndarray):
+        if isinstance(img, (np.ndarray, torch.Tensor)):
             # directly add img
             data = dict(img=img)
         else:
@@ -153,9 +159,16 @@ def inference_detector(model, imgs):
             ), 'CPU inference with RoIPool is not supported currently.'
 
     # forward the model
-    with torch.no_grad():
-        results = model(return_loss=False, rescale=True, **data)
-
+    if True:
+        with torch.no_grad():
+            results = model(return_loss=False, rescale=True, **data)
+    else:
+        start_time = time.time()
+        for _ in range(50):
+            with torch.no_grad():
+                results = model(return_loss=False, rescale=True, **data)
+        duration = time.time() - start_time
+        print(f"\nmodel fps={50/duration}\n")
     if not is_batch:
         return results[0]
     else:
