@@ -50,7 +50,7 @@ def init_detector(
         nn.Module: The constructed detector.
     """
     if isinstance(config, (str, Path)):
-        config = Config.fromfile(config)
+        config = Config.fromfile(config, lazy_import=False)
     elif not isinstance(config, Config):
         raise TypeError('config must be a filename or Config object, '
                         f'but got {type(config)}')
