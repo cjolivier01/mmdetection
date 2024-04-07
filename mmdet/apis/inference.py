@@ -3,6 +3,7 @@ import copy
 import warnings
 from pathlib import Path
 from typing import Optional, Sequence, Union
+import time
 
 import numpy as np
 import torch
@@ -22,6 +23,7 @@ from ..registry import MODELS
 from ..structures import DetDataSample, SampleList
 from ..utils import get_test_pipeline_cfg
 
+from mmcv.utils.registry import dict_to_arg_string
 
 def init_detector(
     config: Union[str, Path, Config],
@@ -54,6 +56,12 @@ def init_detector(
     elif not isinstance(config, Config):
         raise TypeError('config must be a filename or Config object, '
                         f'but got {type(config)}')
+
+    # Check for embedded detector and adjust the model if so
+    if ((not hasattr(config, 'model') or hasattr(config.model, 'detector'))
+        and hasattr(config, 'detector_standalone_model'
+    )):
+        config.model = config.detector_standalone_model
     if cfg_options is not None:
         config.merge_from_dict(cfg_options)
     elif 'init_cfg' in config.model.backbone:
@@ -148,7 +156,7 @@ def inference_detector(
 
     cfg = model.cfg
 
-    if test_pipeline is None:
+    if isinstance(imgs[0], (np.ndarray, torch.Tensor)):
         cfg = cfg.copy()
         test_pipeline = get_test_pipeline_cfg(cfg)
         if isinstance(imgs[0], np.ndarray):
@@ -158,38 +166,43 @@ def inference_detector(
 
         test_pipeline = Compose(test_pipeline)
 
-    if model.data_preprocessor.device.type == 'cpu':
+    datas = []
+    for img in imgs:
+        # prepare data
+        if isinstance(img, (np.ndarray, torch.Tensor)):
+            # directly add img
+            data = dict(img=img)
+        else:
+            # add information into dict
+            data = dict(img_info=dict(filename=img), img_prefix=None)
+        # build the data pipeline
+        data = test_pipeline(data)
+        datas.append(data)
+
+    data = collate(datas, samples_per_gpu=len(imgs))
+    # just get the actual data from DataContainer
+    data['img_metas'] = [img_metas.data[0] for img_metas in data['img_metas']]
+    data['img'] = [img.data[0] for img in data['img']]
+    if next(model.parameters()).is_cuda:
+        # scatter to specified GPU
+        data = scatter(data, [device])[0]
+    else:
         for m in model.modules():
             assert not isinstance(
                 m, RoIPool
             ), 'CPU inference with RoIPool is not supported currently.'
 
-    result_list = []
-    for i, img in enumerate(imgs):
-        # prepare data
-        if isinstance(img, np.ndarray):
-            # TODO: remove img_id.
-            data_ = dict(img=img, img_id=0)
-        else:
-            # TODO: remove img_id.
-            data_ = dict(img_path=img, img_id=0)
-
-        if text_prompt:
-            data_['text'] = text_prompt
-            data_['custom_entities'] = custom_entities
-
-        # build the data pipeline
-        data_ = test_pipeline(data_)
-
-        data_['inputs'] = [data_['inputs']]
-        data_['data_samples'] = [data_['data_samples']]
-
-        # forward the model
+    # forward the model
+    if True:
         with torch.no_grad():
-            results = model.test_step(data_)[0]
-
-        result_list.append(results)
-
+            results = model(return_loss=False, rescale=True, **data)
+    else:
+        start_time = time.time()
+        for _ in range(50):
+            with torch.no_grad():
+                results = model(return_loss=False, rescale=True, **data)
+        duration = time.time() - start_time
+        print(f"\nmodel fps={50/duration}\n")
     if not is_batch:
         return result_list[0]
     else:
