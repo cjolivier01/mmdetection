@@ -7,6 +7,7 @@ import mmcv
 import time
 from mmcv.transforms import Compose
 from mmengine.utils import track_iter_progress
+from mmengine.runner.checkpoint import get_state_dict, save_checkpoint
 
 from mmdet.apis import inference_detector, init_detector
 from mmdet.registry import VISUALIZERS
@@ -95,6 +96,9 @@ def main():
 
     # build the model from a config file and a checkpoint file
     model = init_detector(args.config, args.checkpoint, device=args.device)
+
+    state_dict = get_state_dict(model)
+    # save_checkpoint(state_dict, "detector.pch")
 
     # build test pipeline
     model.cfg.test_dataloader.dataset.pipeline[0].type = "mmdet.LoadImageFromNDArray"
