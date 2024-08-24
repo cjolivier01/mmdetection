@@ -26,8 +26,8 @@ from ..utils import get_test_pipeline_cfg
 def init_detector(
     config: Union[str, Path, Config],
     checkpoint: Optional[str] = None,
-    palette: str = 'none',
-    device: str = 'cuda:0',
+    palette: str = "none",
+    device: str = "cuda:0",
     cfg_options: Optional[dict] = None,
 ) -> nn.Module:
     """Initialize a detector from config file.
@@ -50,71 +50,72 @@ def init_detector(
         nn.Module: The constructed detector.
     """
     if isinstance(config, (str, Path)):
-        config = Config.fromfile(config)
+        config = Config.fromfile(config, lazy_import=False)
+        # Check for embedded detector and adjust the model if so
+        if (
+            not hasattr(config, "model") or hasattr(config.model, "detector")
+        ) and hasattr(config, "detector_standalone_model"):
+            config.model = config.detector_standalone_model
     elif not isinstance(config, Config):
-        raise TypeError('config must be a filename or Config object, '
-                        f'but got {type(config)}')
-
-    # Check for embedded detector and adjust the model if so
-    if ((not hasattr(config, 'model') or hasattr(config.model, 'detector'))
-        and hasattr(config, 'detector_standalone_model'
-    )):
-        config.model = config.detector_standalone_model
+        raise TypeError(
+            "config must be a filename or Config object, " f"but got {type(config)}"
+        )
     if cfg_options is not None:
         config.merge_from_dict(cfg_options)
-    elif 'init_cfg' in config.model.backbone:
+    elif "init_cfg" in config.model.backbone:
         config.model.backbone.init_cfg = None
 
-    scope = config.get('default_scope', 'mmdet')
+    scope = config.get("default_scope", "mmdet")
     if scope is not None:
-        init_default_scope(config.get('default_scope', 'mmdet'))
+        init_default_scope(config.get("default_scope", "mmdet"))
 
     model = MODELS.build(config.model)
     model = revert_sync_batchnorm(model)
     if checkpoint is None:
-        warnings.simplefilter('once')
-        warnings.warn('checkpoint is None, use COCO classes by default.')
-        model.dataset_meta = {'classes': get_classes('coco')}
+        warnings.simplefilter("once")
+        warnings.warn("checkpoint is None, use COCO classes by default.")
+        model.dataset_meta = {"classes": get_classes("coco")}
     else:
-        checkpoint = load_checkpoint(model, checkpoint, map_location='cpu')
+        checkpoint = load_checkpoint(model, checkpoint, map_location="cpu")
         # Weights converted from elsewhere may not have meta fields.
-        checkpoint_meta = checkpoint.get('meta', {})
+        checkpoint_meta = checkpoint.get("meta", {})
 
         # save the dataset_meta in the model for convenience
-        if 'dataset_meta' in checkpoint_meta:
+        if "dataset_meta" in checkpoint_meta:
             # mmdet 3.x, all keys should be lowercase
             model.dataset_meta = {
-                k.lower(): v
-                for k, v in checkpoint_meta['dataset_meta'].items()
+                k.lower(): v for k, v in checkpoint_meta["dataset_meta"].items()
             }
-        elif 'CLASSES' in checkpoint_meta:
+        elif "CLASSES" in checkpoint_meta:
             # < mmdet 3.x
-            classes = checkpoint_meta['CLASSES']
-            model.dataset_meta = {'classes': classes}
+            classes = checkpoint_meta["CLASSES"]
+            model.dataset_meta = {"classes": classes}
         else:
-            warnings.simplefilter('once')
+            warnings.simplefilter("once")
             warnings.warn(
-                'dataset_meta or class names are not saved in the '
-                'checkpoint\'s meta data, use COCO classes by default.')
-            model.dataset_meta = {'classes': get_classes('coco')}
+                "dataset_meta or class names are not saved in the "
+                "checkpoint's meta data, use COCO classes by default."
+            )
+            model.dataset_meta = {"classes": get_classes("coco")}
 
     # Priority:  args.palette -> config -> checkpoint
-    if palette != 'none':
-        model.dataset_meta['palette'] = palette
+    if palette != "none":
+        model.dataset_meta["palette"] = palette
     else:
         test_dataset_cfg = copy.deepcopy(config.test_dataloader.dataset)
         # lazy init. We only need the metainfo.
-        test_dataset_cfg['lazy_init'] = True
+        test_dataset_cfg["lazy_init"] = True
         metainfo = DATASETS.build(test_dataset_cfg).metainfo
-        cfg_palette = metainfo.get('palette', None)
+        cfg_palette = metainfo.get("palette", None)
         if cfg_palette is not None:
-            model.dataset_meta['palette'] = cfg_palette
+            model.dataset_meta["palette"] = cfg_palette
         else:
-            if 'palette' not in model.dataset_meta:
+            if "palette" not in model.dataset_meta:
                 warnings.warn(
-                    'palette does not exist, random is used by default. '
-                    'You can also set the palette to customize.')
-                model.dataset_meta['palette'] = 'random'
+                    "palette does not exist, random is used by default. "
+                    "You can also set the palette to customize."
+                )
+                model.dataset_meta["palette"] = "random"
 
     model.cfg = config  # save the config in the model for convenience
     model.to(device)
@@ -160,15 +161,15 @@ def inference_detector(
         if isinstance(imgs[0], np.ndarray):
             # Calling this method across libraries will result
             # in module unregistered error if not prefixed with mmdet.
-            test_pipeline[0].type = 'mmdet.LoadImageFromNDArray'
+            test_pipeline[0].type = "mmdet.LoadImageFromNDArray"
 
         test_pipeline = Compose(test_pipeline)
 
-    if model.data_preprocessor.device.type == 'cpu':
+    if model.data_preprocessor.device.type == "cpu":
         for m in model.modules():
             assert not isinstance(
                 m, RoIPool
-            ), 'CPU inference with RoIPool is not supported currently.'
+            ), "CPU inference with RoIPool is not supported currently."
 
     result_list = []
     for i, img in enumerate(imgs):
@@ -181,14 +182,14 @@ def inference_detector(
             data_ = dict(img_path=img, img_id=0)
 
         if text_prompt:
-            data_['text'] = text_prompt
-            data_['custom_entities'] = custom_entities
+            data_["text"] = text_prompt
+            data_["custom_entities"] = custom_entities
 
         # build the data pipeline
         data_ = test_pipeline(data_)
 
-        data_['inputs'] = [data_['inputs']]
-        data_['data_samples'] = [data_['data_samples']]
+        data_["inputs"] = [data_["inputs"]]
+        data_["data_samples"] = [data_["data_samples"]]
 
         # forward the model
         with torch.no_grad():
@@ -221,7 +222,7 @@ async def async_inference_detector(model, imgs):
     if isinstance(imgs[0], np.ndarray):
         cfg = cfg.copy()
         # set loading pipeline type
-        cfg.data.test.pipeline[0].type = 'LoadImageFromNDArray'
+        cfg.data.test.pipeline[0].type = "LoadImageFromNDArray"
 
     # cfg.data.test.pipeline = replace_ImageToTensor(cfg.data.test.pipeline)
     test_pipeline = Compose(cfg.data.test.pipeline)
@@ -241,8 +242,8 @@ async def async_inference_detector(model, imgs):
 
     for m in model.modules():
         assert not isinstance(
-            m,
-            RoIPool), 'CPU inference with RoIPool is not supported currently.'
+            m, RoIPool
+        ), "CPU inference with RoIPool is not supported currently."
 
     # We don't restore `torch.is_grad_enabled()` value during concurrent
     # inference since execution can overlap
@@ -263,17 +264,18 @@ def build_test_pipeline(cfg: ConfigType) -> ConfigType:
     """
     # remove the "LoadImageFromFile" and "LoadTrackAnnotations" in pipeline
     transform_broadcaster = cfg.test_dataloader.dataset.pipeline[0].copy()
-    for transform in transform_broadcaster['transforms']:
-        if transform['type'] == 'Resize':
-            transform_broadcaster['transforms'] = transform
+    for transform in transform_broadcaster["transforms"]:
+        if transform["type"] == "Resize":
+            transform_broadcaster["transforms"] = transform
     pack_track_inputs = cfg.test_dataloader.dataset.pipeline[-1].copy()
     test_pipeline = Compose([transform_broadcaster, pack_track_inputs])
 
     return test_pipeline
 
 
-def inference_mot(model: nn.Module, img: np.ndarray, frame_id: int,
-                  video_len: int) -> SampleList:
+def inference_mot(
+    model: nn.Module, img: np.ndarray, frame_id: int, video_len: int
+) -> SampleList:
     """Inference image(s) with the mot model.
 
     Args:
@@ -290,7 +292,8 @@ def inference_mot(model: nn.Module, img: np.ndarray, frame_id: int,
         frame_id=[frame_id],
         ori_shape=[img.shape[:2]],
         img_id=[frame_id + 1],
-        ori_video_length=[video_len])
+        ori_video_length=[video_len],
+    )
 
     test_pipeline = build_test_pipeline(cfg)
     data = test_pipeline(data)
@@ -299,7 +302,7 @@ def inference_mot(model: nn.Module, img: np.ndarray, frame_id: int,
         for m in model.modules():
             assert not isinstance(
                 m, RoIPool
-            ), 'CPU inference with RoIPool is not supported currently.'
+            ), "CPU inference with RoIPool is not supported currently."
 
     # forward the model
     with torch.no_grad():
@@ -308,12 +311,14 @@ def inference_mot(model: nn.Module, img: np.ndarray, frame_id: int,
     return result
 
 
-def init_track_model(config: Union[str, Config],
-                     checkpoint: Optional[str] = None,
-                     detector: Optional[str] = None,
-                     reid: Optional[str] = None,
-                     device: str = 'cuda:0',
-                     cfg_options: Optional[dict] = None) -> nn.Module:
+def init_track_model(
+    config: Union[str, Config],
+    checkpoint: Optional[str] = None,
+    detector: Optional[str] = None,
+    reid: Optional[str] = None,
+    device: str = "cuda:0",
+    cfg_options: Optional[dict] = None,
+) -> nn.Module:
     """Initialize a model from config file.
 
     Args:
@@ -336,41 +341,43 @@ def init_track_model(config: Union[str, Config],
     if isinstance(config, str):
         config = Config.fromfile(config)
     elif not isinstance(config, Config):
-        raise TypeError('config must be a filename or Config object, '
-                        f'but got {type(config)}')
+        raise TypeError(
+            "config must be a filename or Config object, " f"but got {type(config)}"
+        )
     if cfg_options is not None:
         config.merge_from_dict(cfg_options)
 
     model = MODELS.build(config.model)
 
     if checkpoint is not None:
-        checkpoint = load_checkpoint(model, checkpoint, map_location='cpu')
+        checkpoint = load_checkpoint(model, checkpoint, map_location="cpu")
         # Weights converted from elsewhere may not have meta fields.
-        checkpoint_meta = checkpoint.get('meta', {})
+        checkpoint_meta = checkpoint.get("meta", {})
         # save the dataset_meta in the model for convenience
-        if 'dataset_meta' in checkpoint_meta:
-            if 'CLASSES' in checkpoint_meta['dataset_meta']:
-                value = checkpoint_meta['dataset_meta'].pop('CLASSES')
-                checkpoint_meta['dataset_meta']['classes'] = value
-            model.dataset_meta = checkpoint_meta['dataset_meta']
+        if "dataset_meta" in checkpoint_meta:
+            if "CLASSES" in checkpoint_meta["dataset_meta"]:
+                value = checkpoint_meta["dataset_meta"].pop("CLASSES")
+                checkpoint_meta["dataset_meta"]["classes"] = value
+            model.dataset_meta = checkpoint_meta["dataset_meta"]
 
     if detector is not None:
-        assert not (checkpoint and detector), \
-            'Error: checkpoint and detector checkpoint cannot both exist'
-        load_checkpoint(model.detector, detector, map_location='cpu')
+        assert not (
+            checkpoint and detector
+        ), "Error: checkpoint and detector checkpoint cannot both exist"
+        load_checkpoint(model.detector, detector, map_location="cpu")
 
     if reid is not None:
-        assert not (checkpoint and reid), \
-            'Error: checkpoint and reid checkpoint cannot both exist'
-        load_checkpoint(model.reid, reid, map_location='cpu')
+        assert not (
+            checkpoint and reid
+        ), "Error: checkpoint and reid checkpoint cannot both exist"
+        load_checkpoint(model.reid, reid, map_location="cpu")
 
     # Some methods don't load checkpoints or checkpoints don't contain
     # 'dataset_meta'
     # VIS need dataset_meta, MOT don't need dataset_meta
-    if not hasattr(model, 'dataset_meta'):
-        warnings.warn('dataset_meta or class names are missed, '
-                      'use None by default.')
-        model.dataset_meta = {'classes': None}
+    if not hasattr(model, "dataset_meta"):
+        warnings.warn("dataset_meta or class names are missed, " "use None by default.")
+        model.dataset_meta = {"classes": None}
 
     model.cfg = config  # save the config in the model for convenience
     model.to(device)
