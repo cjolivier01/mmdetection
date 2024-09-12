@@ -1,5 +1,7 @@
 _base_ = [
-    '../_base_/datasets/coco_panoptic.py', '../_base_/default_runtime.py'
+    "../_base_/datasets/coco_panoptic.py",
+    # '../_base_/datasets/coco_ice_rink_panoptic.py',
+    "../_base_/default_runtime.py",
 ]
 num_things_classes = 80
 num_stuff_classes = 53

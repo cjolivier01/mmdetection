@@ -1,6 +1,6 @@
 # dataset settings
 dataset_type = "CocoIceRinkPanopticDataset"
-data_root = "data/coco/"
+data_root = "data/IceRink/"
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True
 )
@@ -39,23 +39,23 @@ data = dict(
     workers_per_gpu=2,
     train=dict(
         type=dataset_type,
-        ann_file=data_root + "annotations/panoptic_train2017.json",
-        img_prefix=data_root + "train2017/",
-        seg_prefix=data_root + "annotations/panoptic_train2017/",
+        ann_file=data_root + "annotations/train.json",
+        img_prefix=data_root + "train/",
+        seg_prefix=data_root + "annotations/panoptic_train/",
         pipeline=train_pipeline,
     ),
     val=dict(
         type=dataset_type,
-        ann_file=data_root + "annotations/panoptic_val2017.json",
-        img_prefix=data_root + "val2017/",
-        seg_prefix=data_root + "annotations/panoptic_val2017/",
+        ann_file=data_root + "annotations/valid.json",
+        img_prefix=data_root + "valid/",
+        seg_prefix=data_root + "annotations/panoptic_valid/",
         pipeline=test_pipeline,
     ),
     test=dict(
         type=dataset_type,
-        ann_file=data_root + "annotations/panoptic_val2017.json",
-        img_prefix=data_root + "val2017/",
-        seg_prefix=data_root + "annotations/panoptic_val2017/",
+        ann_file=data_root + "annotations/test.json",
+        img_prefix=data_root + "test/",
+        seg_prefix=data_root + "annotations/panoptic_test/",
         pipeline=test_pipeline,
     ),
 )
