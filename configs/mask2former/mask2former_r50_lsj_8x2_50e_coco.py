@@ -55,25 +55,34 @@ test_pipeline = [
             dict(type='Collect', keys=['img']),
         ])
 ]
-dataset_type = 'CocoDataset'
-data_root = 'data/coco/'
+
+dataset_type = "CocoIceRinkDataset"
+data_root = "data/IceRink/"
+
+# dataset_type = 'CocoDataset'
+# data_root = 'data/coco/'
 data = dict(
     _delete_=True,
     samples_per_gpu=2,
     workers_per_gpu=2,
     train=dict(
         type=dataset_type,
-        ann_file=data_root + 'annotations/instances_train2017.json',
-        img_prefix=data_root + 'train2017/',
-        pipeline=train_pipeline),
+        ann_file=data_root + "annotations/train.json",
+        img_prefix=data_root + "train/",
+        pipeline=train_pipeline,
+    ),
     val=dict(
         type=dataset_type,
-        ann_file=data_root + 'annotations/instances_val2017.json',
-        img_prefix=data_root + 'val2017/',
-        pipeline=test_pipeline),
+        ann_file=data_root + "annotations/valid.json",
+        img_prefix=data_root + "valid/",
+        seg_prefix=data_root + "annotations/panoptic_valid/",
+        pipeline=test_pipeline,
+    ),
     test=dict(
         type=dataset_type,
-        ann_file=data_root + 'annotations/instances_val2017.json',
-        img_prefix=data_root + 'val2017/',
-        pipeline=test_pipeline))
+        ann_file=data_root + "annotations/test.json",
+        img_prefix=data_root + "test/",
+        pipeline=test_pipeline,
+    ),
+)
 evaluation = dict(metric=['bbox', 'segm'])

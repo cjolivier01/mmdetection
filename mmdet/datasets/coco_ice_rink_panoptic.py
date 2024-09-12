@@ -42,7 +42,7 @@ class CocoIceRinkPanoptic(COCO):
                 "panopticapi.git."
             )
 
-        super(COCOPanoptic, self).__init__(annotation_file)
+        super(CocoIceRinkPanoptic, self).__init__(annotation_file)
 
     def createIndex(self):
         # create index
@@ -613,7 +613,7 @@ class CocoIceRinkPanopticDataset(CocoDataset):
         Returns:
             list[dict]: Annotation info from COCO api.
         """
-        self.coco = COCOPanoptic(ann_file)
+        self.coco = CocoIceRinkPanoptic(ann_file)
         self.cat_ids = self.coco.get_cat_ids()
         self.cat2label = {cat_id: i for i, cat_id in enumerate(self.cat_ids)}
         self.categories = self.coco.cats
