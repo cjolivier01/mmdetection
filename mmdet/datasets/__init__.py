@@ -5,6 +5,7 @@ from .coco import CocoDataset
 from .coco_occluded import OccludedSeparatedCocoDataset
 from .coco_panoptic import CocoPanopticDataset
 from .ice_rink import CocoIceRinkDataset
+from .coco_ice_rink_panoptic import CocoIceRinkPanoptic
 from .custom import CustomDataset
 from .dataset_wrappers import (ClassBalancedDataset, ConcatDataset,
                                MultiImageMixDataset, RepeatDataset)
