@@ -212,7 +212,7 @@ async def async_inference_detector(model, imgs):
 
     cfg = model.cfg
 
-    if isinstance(imgs[0], np.ndarray):
+    if isinstance(imgs[0], (np.ndarray, torch.Tensor)):
         cfg = cfg.copy()
         # set loading pipeline type
         cfg.data.test.pipeline[0].type = 'LoadImageFromNDArray'
@@ -223,7 +223,7 @@ async def async_inference_detector(model, imgs):
     datas = []
     for img in imgs:
         # prepare data
-        if isinstance(img, np.ndarray):
+        if isinstance(img, (np.ndarray, torch.Tensor)):
             # directly add img
             data = dict(img=img)
         else:
