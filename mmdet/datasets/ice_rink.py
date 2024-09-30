@@ -10,17 +10,17 @@ from collections import OrderedDict
 
 import mmcv
 import numpy as np
-from mmcv.utils import print_log
+from mmengine.logging import print_log
 from terminaltables import AsciiTable
 
-from mmdet.core import eval_recalls
+from mmdet.evaluation.functional import eval_recalls
 from .api_wrappers import COCO, COCOeval
-from .builder import DATASETS
-from .custom import CustomDataset
+from mmdet.registry import DATASETS
+from .base_det_dataset import BaseDetDataset
 
 
 @DATASETS.register_module()
-class CocoIceRinkDataset(CustomDataset):
+class CocoIceRinkDataset(BaseDetDataset):
 
     CLASSES = (
         "Ice-rink",
