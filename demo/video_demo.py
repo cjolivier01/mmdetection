@@ -1,16 +1,16 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import argparse
+import time
 
 import cv2
 import torch
-import mmcv
-import time
-from mmcv.transforms import Compose
-from mmengine.utils import track_iter_progress
-from mmengine.runner.checkpoint import get_state_dict, save_checkpoint
-
 from mmdet.apis import inference_detector, init_detector
 from mmdet.registry import VISUALIZERS
+
+import mmcv
+from mmcv.transforms import Compose
+from mmengine.runner.checkpoint import get_state_dict, save_checkpoint
+from mmengine.utils import track_iter_progress
 
 
 class TimerData:
@@ -97,7 +97,7 @@ def main():
     # build the model from a config file and a checkpoint file
     model = init_detector(args.config, args.checkpoint, device=args.device)
 
-    state_dict = get_state_dict(model)
+    # state_dict = get_state_dict(model)
     # save_checkpoint(state_dict, "detector.pch")
 
     # build test pipeline
@@ -126,8 +126,8 @@ def main():
     for frame in track_iter_progress((video_reader, len(video_reader))):
         with Timer(timer_data=timer_data, batch_size=1):
             result = inference_detector(model, frame, test_pipeline=test_pipeline)
-            labels = result.pred_instances.labels.cpu()
-            bboxes = result.pred_instances.bboxes.cpu()
+            # labels = result.pred_instances.labels.cpu()
+            # bboxes = result.pred_instances.bboxes.cpu()
         if torch.is_floating_point(result.pred_instances.labels):
             result.pred_instances.labels = result.pred_instances.labels.to(torch.int64)
         if args.out or args.show:

@@ -1,4 +1,7 @@
-_base_ = ["./mask2former_swin-t-p4-w7-224_8xb2-lsj-50e_coco.py"]
+_base_ = [
+    "./mask2former_swin-t-p4-w7-224_8xb2-lsj-50e_coco.py",
+    "../_base_/datasets/coco_panoptic.py"
+          ]
 pretrained = "https://github.com/SwinTransformer/storage/releases/download/v1.0.0/swin_small_patch4_window7_224.pth"  # noqa
 
 depths = [2, 2, 18, 2]
@@ -40,3 +43,4 @@ custom_keys.update(
 )
 # optimizer
 optim_wrapper = dict(paramwise_cfg=dict(custom_keys=custom_keys, norm_decay_mult=0.0))
+dataset_type = "CocoIceRinkDataset"
