@@ -5,12 +5,13 @@ from collections import defaultdict
 
 import mmcv
 import numpy as np
-from mmcv.utils import print_log
+from mmengine.logging import print_log
 from terminaltables import AsciiTable
 
-from mmdet.core import INSTANCE_OFFSET
-from .api_wrappers import COCO, pq_compute_multi_core
-from .builder import DATASETS
+from mmdet.evaluation import INSTANCE_OFFSET
+from .api_wrappers import COCO
+from mmdet.evaluation.functional import pq_compute_multi_core
+from mmdet.registry import DATASETS
 from .coco import CocoDataset
 
 try:
