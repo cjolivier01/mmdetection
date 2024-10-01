@@ -73,27 +73,27 @@ test_pipeline = [
                    'scale_factor'))
 ]
 
-dataset_type = 'CocoDataset'
-data_root = 'data/coco/'
+dataset_type = "CocoIceRinkDataset"
+data_root = "data/IceRink/"
 
 train_dataloader = dict(
     dataset=dict(
         type=dataset_type,
-        ann_file='annotations/instances_train2017.json',
-        data_prefix=dict(img='train2017/'),
+        ann_file=data_root + 'annotations/train.json',
+        data_prefix=dict(img='train/'),
         pipeline=train_pipeline))
 val_dataloader = dict(
     dataset=dict(
         type=dataset_type,
-        ann_file='annotations/instances_val2017.json',
-        data_prefix=dict(img='val2017/'),
+        ann_file=data_root + 'annotations/test.json',
+        data_prefix=dict(img='test/'),
         pipeline=test_pipeline))
 test_dataloader = val_dataloader
 
 val_evaluator = dict(
     _delete_=True,
     type='CocoMetric',
-    ann_file=data_root + 'annotations/instances_val2017.json',
+    ann_file=data_root + 'annotations/valid.json',
     metric=['bbox', 'segm'],
     format_only=False,
     backend_args={{_base_.backend_args}})

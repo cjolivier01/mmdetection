@@ -1,11 +1,12 @@
 # dataset settings
 dataset_type = "CocoIceRinkDataset"
 data_root = "data/IceRink/"
+backend_args = None
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True
 )
 train_pipeline = [
-    dict(type="LoadImageFromFile"),
+    dict(type="LoadImageFromFile", backend_args=backend_args),
     dict(type="LoadAnnotations", with_bbox=True, with_mask=True),
     dict(type="Resize", img_scale=(1333, 800), keep_ratio=True),
     dict(type="RandomFlip", flip_ratio=0.5),
@@ -15,7 +16,7 @@ train_pipeline = [
     dict(type="Collect", keys=["img", "gt_bboxes", "gt_labels", "gt_masks"]),
 ]
 test_pipeline = [
-    dict(type="LoadImageFromFile"),
+    dict(type="LoadImageFromFile", backend_args=backend_args),
     dict(
         type="MultiScaleFlipAug",
         img_scale=(1333, 800),
