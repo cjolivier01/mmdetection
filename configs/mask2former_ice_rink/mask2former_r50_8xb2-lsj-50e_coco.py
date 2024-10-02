@@ -4,6 +4,10 @@ _base_ = ["../mask2former/mask2former_r50_8xb2-lsj-50e_coco-panoptic.py"]
 num_things_classes = 1  # Just an ice rink
 num_stuff_classes = 0
 num_classes = num_things_classes + num_stuff_classes
+
+# max_per_image is for instance segmentation.
+max_per_image = 24
+
 image_size = (1024, 1024)
 batch_augments = [
     dict(
@@ -36,7 +40,10 @@ model = dict(
     panoptic_fusion_head=dict(
         num_things_classes=num_things_classes, num_stuff_classes=num_stuff_classes
     ),
-    test_cfg=dict(panoptic_on=False),
+    test_cfg=dict(
+        panoptic_on=False,
+        max_per_image=max_per_image,
+    ),
 )
 
 # dataset settings
