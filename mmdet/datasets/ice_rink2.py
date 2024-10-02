@@ -29,6 +29,9 @@ class CocoIceRink2Dataset(BaseDetDataset):
     METAINFO = {
         "classes": ("Ice-rink"),
         # palette is a list of color tuples, which is used for visualization.
+        # We keep the larger palette because some COCO models will still sometimes
+        # find a class that we don't care about, but haven;t gottent he model to
+        # fully forget yet (for visualization only).
         "palette": [
             (220, 20, 60),
             (119, 11, 32),
