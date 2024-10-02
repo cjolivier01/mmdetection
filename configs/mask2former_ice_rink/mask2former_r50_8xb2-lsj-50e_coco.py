@@ -134,4 +134,11 @@ test_evaluator = val_evaluator
 #       or not by default.
 #   - `base_batch_size` = (8 GPUs) x (2 samples per GPU).
 # auto_scale_lr = dict(enable=True, base_batch_size=16)
-auto_scale_lr = dict(enable=True)
+auto_scale_lr = dict(enable=True, base_batch_size=16)
+
+train_cfg = dict(
+    type="IterBasedTrainLoop",
+    max_iters=20000,
+    val_interval=1500,
+    dynamic_intervals=None,
+)
