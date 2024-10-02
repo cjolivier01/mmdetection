@@ -80,19 +80,19 @@ train_dataloader = dict(
     dataset=dict(
         type=dataset_type,
         ann_file=data_root + 'train/_annotations.coco.json',
-        data_prefix=dict(img='train/'),
+        data_prefix=dict(img=data_root + 'train/'),
         pipeline=train_pipeline))
 test_dataloader = dict(
     dataset=dict(
         type=dataset_type,
         ann_file=data_root + 'test/_annotations.coco.json',
-        data_prefix=dict(img='test/'),
+        data_prefix=dict(img=data_root + 'test/'),
         pipeline=test_pipeline))
 val_dataloader = dict(
     dataset=dict(
         type=dataset_type,
         ann_file=data_root + 'valid/_annotations.coco.json',
-        data_prefix=dict(img='valid/'),
+        data_prefix=dict(img=data_root + 'valid/'),
         pipeline=test_pipeline))
 
 val_evaluator = dict(
