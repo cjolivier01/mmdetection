@@ -73,7 +73,7 @@ test_pipeline = [
                    'scale_factor'))
 ]
 
-dataset_type = "CocoIceRinkDataset"
+dataset_type = "CocoIceRink2Dataset"
 data_root = "data/IceRink/"
 
 train_dataloader = dict(

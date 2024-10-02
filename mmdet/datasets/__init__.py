@@ -9,6 +9,7 @@ from .coco import CocoDataset
 from .coco_caption import CocoCaptionDataset
 from .coco_panoptic import CocoPanopticDataset
 from .ice_rink import CocoIceRinkDataset
+from .ice_rink2 import CocoIceRink2Dataset
 from .coco_ice_rink_panoptic import CocoIceRinkPanoptic
 from .coco_semantic import CocoSegDataset
 from .crowdhuman import CrowdHumanDataset
@@ -41,7 +42,7 @@ __all__ = [
     'XMLDataset', 'CocoDataset', 'DeepFashionDataset', 'VOCDataset',
     'CityscapesDataset', 'LVISDataset', 'LVISV05Dataset', 'LVISV1Dataset',
     'WIDERFaceDataset', 'get_loading_pipeline', 'CocoPanopticDataset',
-    "CocoIceRinkDataset", "CocoIceRinkPanoptic",
+    "CocoIceRinkDataset", "CocoIceRink2Dataset", "CocoIceRinkPanoptic",
     'MultiImageMixDataset', 'OpenImagesDataset', 'OpenImagesChallengeDataset',
     'AspectRatioBatchSampler', 'ClassAwareSampler', 'MultiSourceSampler',
     'GroupMultiSourceSampler', 'BaseDetDataset', 'CrowdHumanDataset',

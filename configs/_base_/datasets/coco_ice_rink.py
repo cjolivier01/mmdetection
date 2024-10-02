@@ -36,19 +36,19 @@ data = dict(
     workers_per_gpu=2,
     train=dict(
         type=dataset_type,
-        ann_file=data_root + "annotations/train.json",
+        ann_file=data_root + "annotations/train_mmcv2.json",
         img_prefix=data_root + "train/",
         pipeline=train_pipeline,
     ),
     val=dict(
         type=dataset_type,
-        ann_file=data_root + "annotations/valid.json",
+        ann_file=data_root + "annotations/valid_mmcv2.json",
         img_prefix=data_root + "valid/",
         pipeline=test_pipeline,
     ),
     test=dict(
         type=dataset_type,
-        ann_file=data_root + "annotations/test.json",
+        ann_file=data_root + "annotations/test_mmcv2.json",
         img_prefix=data_root + "test/",
         pipeline=test_pipeline,
     ),
