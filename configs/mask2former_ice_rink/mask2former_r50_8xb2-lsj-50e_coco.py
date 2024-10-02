@@ -79,21 +79,26 @@ data_root = "data/IceRink/"
 train_dataloader = dict(
     dataset=dict(
         type=dataset_type,
-        ann_file=data_root + 'annotations/train.json',
+        ann_file=data_root + 'train/_annotations.coco.json',
         data_prefix=dict(img='train/'),
         pipeline=train_pipeline))
+test_dataloader = dict(
+    dataset=dict(
+        type=dataset_type,
+        ann_file=data_root + 'test/_annotations.coco.json',
+        data_prefix=dict(img='test/'),
+        pipeline=test_pipeline))
 val_dataloader = dict(
     dataset=dict(
         type=dataset_type,
-        ann_file=data_root + 'annotations/test.json',
-        data_prefix=dict(img='test/'),
+        ann_file=data_root + 'valid/_annotations.coco.json',
+        data_prefix=dict(img='valid/'),
         pipeline=test_pipeline))
-test_dataloader = val_dataloader
 
 val_evaluator = dict(
     _delete_=True,
     type='CocoMetric',
-    ann_file=data_root + 'annotations/valid.json',
+    ann_file=data_root + 'valid/_annotations.coco.json',
     metric=['bbox', 'segm'],
     format_only=False,
     backend_args={{_base_.backend_args}})
