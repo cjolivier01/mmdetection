@@ -27,6 +27,9 @@ from .base_det_dataset import BaseDetDataset
 class CocoIceRink2Dataset(BaseDetDataset):
 
     METAINFO = {
+        # "perspon" is usually the first class, but we need to make it forget about people,
+        # because this will cause holes in the ice (where people are), which will be
+        # both annoying and problematic down the road.
         "classes": ("Ice-rink"),
         # palette is a list of color tuples, which is used for visualization.
         # We keep the larger palette because some COCO models will still sometimes
