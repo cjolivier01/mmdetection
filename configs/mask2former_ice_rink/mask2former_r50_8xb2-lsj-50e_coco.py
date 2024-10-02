@@ -128,3 +128,10 @@ val_evaluator = dict(
     backend_args={{_base_.backend_args}},
 )
 test_evaluator = val_evaluator
+
+# Default setting for scaling LR automatically
+#   - `enable` means enable scaling LR automatically
+#       or not by default.
+#   - `base_batch_size` = (8 GPUs) x (2 samples per GPU).
+# auto_scale_lr = dict(enable=True, base_batch_size=16)
+auto_scale_lr = dict(enable=True)
