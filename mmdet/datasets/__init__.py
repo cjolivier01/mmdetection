@@ -1,12 +1,13 @@
 # Copyright (c) OpenMMLab. All rights reserved.
-from .ade20k import (ADE20KInstanceDataset, ADE20KPanopticDataset,
-                     ADE20KSegDataset)
+from .ade20k import ADE20KInstanceDataset, ADE20KPanopticDataset, ADE20KSegDataset
 from .base_det_dataset import BaseDetDataset
 from .base_semseg_dataset import BaseSegDataset
 from .base_video_dataset import BaseVideoDataset
 from .cityscapes import CityscapesDataset
 from .coco import CocoDataset
 from .coco_caption import CocoCaptionDataset
+from .coco_ice_rink2 import CocoIceRink2Dataset
+from .coco_ice_rink_panoptic import CocoIceRinkPanoptic
 from .coco_panoptic import CocoPanopticDataset
 from .coco_semantic import CocoSegDataset
 from .crowdhuman import CrowdHumanDataset
@@ -15,6 +16,7 @@ from .deepfashion import DeepFashionDataset
 from .dod import DODDataset
 from .dsdl import DSDLDetDataset
 from .flickr30k import Flickr30kDataset
+from .ice_rink import CocoIceRinkDataset
 from .isaid import iSAIDDataset
 from .lvis import LVISDataset, LVISV1Dataset, LVISV05Dataset
 from .mdetr_style_refcoco import MDETRStyleRefCocoDataset
@@ -24,10 +26,15 @@ from .odvg import ODVGDataset
 from .openimages import OpenImagesChallengeDataset, OpenImagesDataset
 from .refcoco import RefCocoDataset
 from .reid_dataset import ReIDDataset
-from .samplers import (AspectRatioBatchSampler, ClassAwareSampler,
-                       CustomSampleSizeSampler, GroupMultiSourceSampler,
-                       MultiSourceSampler, TrackAspectRatioBatchSampler,
-                       TrackImgSampler)
+from .samplers import (
+    AspectRatioBatchSampler,
+    ClassAwareSampler,
+    CustomSampleSizeSampler,
+    GroupMultiSourceSampler,
+    MultiSourceSampler,
+    TrackAspectRatioBatchSampler,
+    TrackImgSampler,
+)
 from .utils import get_loading_pipeline
 from .v3det import V3DetDataset
 from .voc import VOCDataset
@@ -39,6 +46,7 @@ __all__ = [
     'XMLDataset', 'CocoDataset', 'DeepFashionDataset', 'VOCDataset',
     'CityscapesDataset', 'LVISDataset', 'LVISV05Dataset', 'LVISV1Dataset',
     'WIDERFaceDataset', 'get_loading_pipeline', 'CocoPanopticDataset',
+    "CocoIceRinkDataset", "CocoIceRink2Dataset", "CocoIceRinkPanoptic",
     'MultiImageMixDataset', 'OpenImagesDataset', 'OpenImagesChallengeDataset',
     'AspectRatioBatchSampler', 'ClassAwareSampler', 'MultiSourceSampler',
     'GroupMultiSourceSampler', 'BaseDetDataset', 'CrowdHumanDataset',
