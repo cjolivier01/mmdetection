@@ -89,6 +89,7 @@ dataset_type = "CocoIceRink2Dataset"
 data_root = "data/IceRink/"
 
 train_dataloader = dict(
+    sampler=dict(type="InfiniteSampler"),
     batch_size=1,
     dataset=dict(
         type=dataset_type,
