@@ -1,12 +1,12 @@
 # _base_ = ['./mask2former_r50_8xb2-lsj-50e_coco-panoptic.py']
 _base_ = ["../mask2former/mask2former_r50_8xb2-lsj-50e_coco-panoptic.py"]
 
-num_things_classes = 1  # Just an ice rink
+num_things_classes = 80  # Just an ice rink
 num_stuff_classes = 0
 num_classes = num_things_classes + num_stuff_classes
 
 # max_per_image is for instance segmentation.
-max_per_image = 24
+max_per_image = 50
 
 image_size = (1024, 1024)
 batch_augments = [
@@ -137,8 +137,7 @@ default_hooks = dict(
 #   - `enable` means enable scaling LR automatically
 #       or not by default.
 #   - `base_batch_size` = (8 GPUs) x (2 samples per GPU).
-# auto_scale_lr = dict(enable=True, base_batch_size=16)
-auto_scale_lr = dict(enable=True, base_batch_size=32)
+auto_scale_lr = dict(enable=True, base_batch_size=16)
 
 train_cfg = dict(
     type="IterBasedTrainLoop",
