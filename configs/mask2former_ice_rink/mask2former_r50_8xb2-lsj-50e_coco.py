@@ -129,6 +129,10 @@ val_evaluator = dict(
 )
 test_evaluator = val_evaluator
 
+default_hooks = dict(
+    checkpoint=dict(type="CheckpointHook", interval=10, max_keep_ckpts=25)
+)
+
 # Default setting for scaling LR automatically
 #   - `enable` means enable scaling LR automatically
 #       or not by default.
@@ -138,7 +142,7 @@ auto_scale_lr = dict(enable=True, base_batch_size=32)
 
 train_cfg = dict(
     type="IterBasedTrainLoop",
-    max_iters=20000,
+    max_iters=30000,
     val_interval=1500,
     dynamic_intervals=None,
 )
