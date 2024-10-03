@@ -130,7 +130,7 @@ val_evaluator = dict(
 test_evaluator = val_evaluator
 
 default_hooks = dict(
-    checkpoint=dict(type="CheckpointHook", interval=10, max_keep_ckpts=25)
+    checkpoint=dict(type="CheckpointHook", interval=1500, max_keep_ckpts=25)
 )
 
 # Default setting for scaling LR automatically
