@@ -87,10 +87,10 @@ test_pipeline = [
 
 dataset_type = "CocoIceRink2Dataset"
 data_root = "data/IceRink/"
-
+batch_size = 2
 train_dataloader = dict(
     sampler=dict(type="InfiniteSampler"),
-    batch_size=1,
+    batch_size=batch_size,
     dataset=dict(
         type=dataset_type,
         data_root=data_root,
