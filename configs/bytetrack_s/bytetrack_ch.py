@@ -8,10 +8,11 @@ batch_size = 4
 
 detector = _base_.model
 detector.pop("data_preprocessor")
-detector.bbox_head.update(dict(num_classes=1))
+# detector.bbox_head.update(dict(num_classes=1))
 detector.test_cfg.nms.update(dict(iou_threshold=0.7))
 detector["init_cfg"] = dict(
     type="Pretrained",
+    prefix="detector.",
     checkpoint="https://download.openmmlab.com/mmdetection/v2.0/yolox/yolox_s_8x8_300e_coco/yolox_s_8x8_300e_coco_20211121_095711-4592a793.pth",  # noqa: E251  # noqa: E501
 )
 del _base_.model
@@ -53,8 +54,10 @@ model = dict(
     tracker=dict(
         type="ByteTracker",
         motion=dict(type="KalmanFilter"),
-        obj_score_thrs=dict(high=0.6, low=0.1),
-        init_track_thr=0.7,
+        # obj_score_thrs=dict(high=0.6, low=0.1),
+        obj_score_thrs=dict(high=0.4, low=0.1),
+        # init_track_thr=0.7,
+        init_track_thr=0.5,
         weight_iou_with_det_scores=True,
         match_iou_thrs=dict(high=0.1, low=0.5, tentative=0.3),
         num_frames_retain=30,
