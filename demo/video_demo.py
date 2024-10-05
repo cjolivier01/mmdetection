@@ -79,6 +79,12 @@ def parse_args():
     parser.add_argument("--out", type=str, help="Output video file")
     parser.add_argument("--show", action="store_true", help="Show video")
     parser.add_argument(
+        "--save-checkpoint",
+        type=str,
+        default=None,
+        help="Save a copy of the checkpoint",
+    )
+    parser.add_argument(
         "--wait-time",
         type=float,
         default=1,
@@ -97,8 +103,9 @@ def main():
     # build the model from a config file and a checkpoint file
     model = init_detector(args.config, args.checkpoint, device=args.device)
 
-    # state_dict = get_state_dict(model)
-    # save_checkpoint(state_dict, "detector.pch")
+    if args.save_checkpoint:
+        state_dict = get_state_dict(model)
+        save_checkpoint(state_dict, args.save_checkpoint)
 
     # build test pipeline
     model.cfg.test_dataloader.dataset.pipeline[0].type = "mmdet.LoadImageFromNDArray"
