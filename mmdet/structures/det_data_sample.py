@@ -121,6 +121,9 @@ class DetDataSample(BaseDataElement):
         >>> assert 'segm_seg' in data_sample.gt_segm_seg
     """
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
     @property
     def proposals(self) -> InstanceData:
         return self._proposals
