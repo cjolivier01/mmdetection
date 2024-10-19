@@ -2,13 +2,13 @@
 from typing import Optional, Sequence
 
 import numpy as np
+import torch
 from mmcv.transforms import to_tensor
 from mmcv.transforms.base import BaseTransform
-from mmengine.structures import InstanceData, PixelData
-
 from mmdet.registry import TRANSFORMS
 from mmdet.structures import DetDataSample, ReIDDataSample, TrackDataSample
 from mmdet.structures.bbox import BaseBoxes
+from mmengine.structures import InstanceData, PixelData
 
 
 @TRANSFORMS.register_module()
@@ -342,8 +342,11 @@ class PackTrackInputs(BaseTransform):
         # 1. Pack images
         if 'img' in results:
             imgs = results['img']
-            imgs = np.stack(imgs, axis=0)
-            imgs = imgs.transpose(0, 3, 1, 2)
+            if not isinstance(imgs, torch.Tensor):
+                imgs = np.stack(imgs, axis=0)
+                imgs = imgs.transpose(0, 3, 1, 2)
+            else:
+                imgs = imgs.permute(0, 3, 1, 2)
             packed_results['inputs'] = to_tensor(imgs)
 
         # 2. Pack InstanceData
