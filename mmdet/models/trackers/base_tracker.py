@@ -98,6 +98,9 @@ class BaseTracker(metaclass=ABCMeta):
         for invalid_id in invalid_ids:
             self.tracks.pop(invalid_id)
 
+    def __len__(self) -> int:
+        return len(self.tracks)
+
     def update_track(self, id: int, obj: Tuple[torch.Tensor]):
         """Update a track."""
         for k, v in zip(self.memo_items, obj):
