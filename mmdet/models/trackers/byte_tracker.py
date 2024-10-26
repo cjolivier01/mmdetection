@@ -7,12 +7,15 @@ except ImportError:
     lap = None
 import numpy as np
 import torch
-from mmengine.structures import InstanceData
-
 from mmdet.registry import MODELS, TASK_UTILS
 from mmdet.structures import DetDataSample
-from mmdet.structures.bbox import (bbox_cxcyah_to_xyxy, bbox_overlaps,
-                                   bbox_xyxy_to_cxcyah)
+from mmdet.structures.bbox import (
+    bbox_cxcyah_to_xyxy,
+    bbox_overlaps,
+    bbox_xyxy_to_cxcyah,
+)
+from mmengine.structures import InstanceData
+
 from .base_tracker import BaseTracker
 
 
@@ -87,6 +90,9 @@ class ByteTracker(BaseTracker):
         bbox = bbox.squeeze(0).cpu().numpy()
         self.tracks[id].mean, self.tracks[id].covariance = self.kf.initiate(
             bbox)
+
+    def __len__(self) -> int:
+        return len(self.tracks)
 
     def update_track(self, id: int, obj: Tuple[torch.Tensor]) -> None:
         """Update a track."""
