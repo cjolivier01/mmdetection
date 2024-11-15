@@ -78,6 +78,9 @@ class ByteTracker(BaseTracker):
         ids = [id for id, track in self.tracks.items() if track.tentative]
         return ids
 
+    def __len__(self) -> int:
+        return len(self.tracks)
+
     def init_track(self, id: int, obj: Tuple[torch.Tensor]) -> None:
         """Initialize a track."""
         super().init_track(id, obj)
@@ -90,9 +93,6 @@ class ByteTracker(BaseTracker):
         bbox = bbox.squeeze(0).cpu().numpy()
         self.tracks[id].mean, self.tracks[id].covariance = self.kf.initiate(
             bbox)
-
-    def __len__(self) -> int:
-        return len(self.tracks)
 
     def update_track(self, id: int, obj: Tuple[torch.Tensor]) -> None:
         """Update a track."""
@@ -238,6 +238,7 @@ class ByteTracker(BaseTracker):
             # 1. use Kalman Filter to predict current location
             for id in self.confirmed_ids:
                 # track is lost in previous frame
+                print(self.tracks[id].mean)
                 if self.tracks[id].frame_ids[-1] != frame_id - 1:
                     self.tracks[id].mean[7] = 0
                 (self.tracks[id].mean,
