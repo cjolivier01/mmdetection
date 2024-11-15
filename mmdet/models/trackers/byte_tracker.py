@@ -61,10 +61,11 @@ class ByteTracker(BaseTracker):
         self.obj_score_thrs = obj_score_thrs
         self.init_track_thr = init_track_thr
 
-        self.weight_iou_with_det_scores = weight_iou_with_det_scores
-        self.match_iou_thrs = match_iou_thrs
+        self.weight_iou_with_det_scores: float = weight_iou_with_det_scores
+        self.match_iou_thrs: float = match_iou_thrs
 
-        self.num_tentatives = num_tentatives
+        self.num_tentatives: int = num_tentatives
+        self.track_pass: int = 0
 
     @property
     def confirmed_ids(self) -> List:
@@ -250,6 +251,8 @@ class ByteTracker(BaseTracker):
                 self.confirmed_ids, first_det_bboxes, first_det_labels,
                 first_det_scores, self.weight_iou_with_det_scores,
                 self.match_iou_thrs['high'])
+            print(f"Pass: {self.track_pass}: {first_match_track_inds}")
+            print(f"Pass: {self.track_pass}: {first_match_det_inds}")
             # '-1' mean a detection box is not matched with tracklets in
             # previous frame
             valid = first_match_det_inds > -1
@@ -319,9 +322,11 @@ class ByteTracker(BaseTracker):
 
             # 6. assign new ids
             new_track_inds = ids == -1
-            ids[new_track_inds] = torch.arange(
-                self.num_tracks,
-                self.num_tracks + new_track_inds.sum()).to(labels)
+            new_track_ids = torch.arange(
+                self.num_tracks, self.num_tracks + new_track_inds.sum()
+            ).to(labels)
+            assert len(new_track_ids) == new_track_inds.sum()
+            ids[new_track_inds] = new_track_ids
             self.num_tracks += new_track_inds.sum()
 
         self.update(
@@ -337,5 +342,7 @@ class ByteTracker(BaseTracker):
         pred_track_instances.labels = labels
         pred_track_instances.scores = scores
         pred_track_instances.instances_id = ids
+
+        self.track_pass += 1
 
         return pred_track_instances
