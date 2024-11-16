@@ -94,6 +94,9 @@ class ByteTracker(BaseTracker):
         bbox = bbox.squeeze(0).cpu().numpy()
         self.tracks[id].mean, self.tracks[id].covariance = self.kf.initiate(
             bbox)
+        # if id == 2:
+        #     print(bbox)
+        #     print(self.tracks[id].mean)
 
     def update_track(self, id: int, obj: Tuple[torch.Tensor]) -> None:
         """Update a track."""
@@ -110,6 +113,9 @@ class ByteTracker(BaseTracker):
         assert obj_label == track_label
         self.tracks[id].mean, self.tracks[id].covariance = self.kf.update(
             self.tracks[id].mean, self.tracks[id].covariance, bbox)
+        # if id == 2:
+        #     print(bbox)
+        #     print(self.tracks[id].mean)
 
     def pop_invalid_tracks(self, frame_id: int) -> None:
         """Pop out invalid tracks."""
@@ -239,7 +245,8 @@ class ByteTracker(BaseTracker):
             # 1. use Kalman Filter to predict current location
             for id in self.confirmed_ids:
                 # track is lost in previous frame
-                print(self.tracks[id].mean)
+                if self.track_pass == 3:
+                    print(self.tracks[id].mean)
                 if self.tracks[id].frame_ids[-1] != frame_id - 1:
                     self.tracks[id].mean[7] = 0
                 (self.tracks[id].mean,
@@ -251,8 +258,8 @@ class ByteTracker(BaseTracker):
                 self.confirmed_ids, first_det_bboxes, first_det_labels,
                 first_det_scores, self.weight_iou_with_det_scores,
                 self.match_iou_thrs['high'])
-            print(f"Pass: {self.track_pass}: {first_match_track_inds}")
-            print(f"Pass: {self.track_pass}: {first_match_det_inds}")
+            # print(f"Pass: {self.track_pass}: {first_match_track_inds}")
+            # print(f"Pass: {self.track_pass}: {first_match_det_inds}")
             # '-1' mean a detection box is not matched with tracklets in
             # previous frame
             valid = first_match_det_inds > -1
