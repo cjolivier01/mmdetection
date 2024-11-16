@@ -185,6 +185,8 @@ class ByteTracker(BaseTracker):
         else:
             row = np.zeros(len(ids)).astype(np.int32) - 1
             col = np.zeros(len(det_bboxes)).astype(np.int32) - 1
+        # print(row)
+        # print(col)
         return row, col
 
     def track(self, data_sample: DetDataSample, **kwargs) -> InstanceData:
@@ -245,8 +247,6 @@ class ByteTracker(BaseTracker):
             # 1. use Kalman Filter to predict current location
             for id in self.confirmed_ids:
                 # track is lost in previous frame
-                if self.track_pass == 3:
-                    print(self.tracks[id].mean)
                 if self.tracks[id].frame_ids[-1] != frame_id - 1:
                     self.tracks[id].mean[7] = 0
                 (self.tracks[id].mean,
