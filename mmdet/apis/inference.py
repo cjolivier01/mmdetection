@@ -26,9 +26,10 @@ from ..utils import get_test_pipeline_cfg
 def init_detector(
     config: Union[str, Path, Config],
     checkpoint: Optional[str] = None,
-    palette: str = 'none',
-    device: str = 'cuda:0',
+    palette: str = "none",
+    device: str = "cuda:0",
     cfg_options: Optional[dict] = None,
+    weights_only: bool = False,
 ) -> nn.Module:
     """Initialize a detector from config file.
 
@@ -70,7 +71,12 @@ def init_detector(
         warnings.warn('checkpoint is None, use COCO classes by default.')
         model.dataset_meta = {'classes': get_classes('coco')}
     else:
-        checkpoint = load_checkpoint(model, checkpoint, map_location='cpu')
+        checkpoint = load_checkpoint(
+            model,
+            checkpoint,
+            map_location="cpu",
+            # , weights_only=weights_only
+        )
         # Weights converted from elsewhere may not have meta fields.
         checkpoint_meta = checkpoint.get('meta', {})
 
