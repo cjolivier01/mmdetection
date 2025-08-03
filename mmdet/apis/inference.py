@@ -72,10 +72,7 @@ def init_detector(
         model.dataset_meta = {'classes': get_classes('coco')}
     else:
         checkpoint = load_checkpoint(
-            model,
-            checkpoint,
-            map_location="cpu",
-            # , weights_only=weights_only
+            model, checkpoint, map_location="cpu", weights_only=weights_only
         )
         # Weights converted from elsewhere may not have meta fields.
         checkpoint_meta = checkpoint.get('meta', {})
