@@ -6,6 +6,7 @@ from torch import Tensor
 from mmdet.registry import MODELS
 from mmdet.structures import OptSampleList, SampleList
 from mmdet.utils import ConfigType, OptConfigType, OptMultiConfig
+from torch.cuda.graphs import make_graphed_callables
 from .base import BaseDetector
 
 
@@ -35,6 +36,7 @@ class SingleStageDetector(BaseDetector):
         self.bbox_head = MODELS.build(bbox_head)
         self.train_cfg = train_cfg
         self.test_cfg = test_cfg
+        self.graphed = False
 
     def _load_from_state_dict(self, state_dict: dict, prefix: str,
                               local_metadata: dict, strict: bool,
@@ -143,6 +145,11 @@ class SingleStageDetector(BaseDetector):
             tuple[Tensor]: Multi-level features that may have
             different resolutions.
         """
+
+        if not self.graphed:
+            make_graphed_callables(self.backbone, (batch_inputs,))
+            self.graphed = True
+
         x = self.backbone(batch_inputs)
         if self.with_neck:
             x = self.neck(x)
