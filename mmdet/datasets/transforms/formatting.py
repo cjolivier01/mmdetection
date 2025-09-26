@@ -77,11 +77,14 @@ class PackDetInputs(BaseTransform):
             # `torch.permute()` followed by `torch.contiguous()`
             # Refer to https://github.com/open-mmlab/mmdetection/pull/9533
             # for more details
-            if not img.flags.c_contiguous:
-                img = np.ascontiguousarray(img.transpose(2, 0, 1))
-                img = to_tensor(img)
+            if not isinstance(img, torch.Tensor):
+                if not img.flags.c_contiguous:
+                    img = np.ascontiguousarray(img.transpose(2, 0, 1))
+                    img = to_tensor(img)
+                else:
+                    img = to_tensor(img).permute(2, 0, 1).contiguous()
             else:
-                img = to_tensor(img).permute(2, 0, 1).contiguous()
+                img = img.permute(2, 0, 1).contiguous()
 
             packed_results['inputs'] = img
 
