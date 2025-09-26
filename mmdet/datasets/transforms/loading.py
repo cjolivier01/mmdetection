@@ -914,7 +914,7 @@ class InferencerLoader(BaseTransform):
         """
         if isinstance(results, str):
             inputs = dict(img_path=results)
-        elif isinstance(results, np.ndarray):
+        elif isinstance(results, np.ndarray | torch.Tensor):
             inputs = dict(img=results)
         elif isinstance(results, dict):
             inputs = results
