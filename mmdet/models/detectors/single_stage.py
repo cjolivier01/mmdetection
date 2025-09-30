@@ -25,7 +25,8 @@ class SingleStageDetector(BaseDetector):
                  train_cfg: OptConfigType = None,
                  test_cfg: OptConfigType = None,
                  data_preprocessor: OptConfigType = None,
-                 init_cfg: OptMultiConfig = None) -> None:
+                 init_cfg: OptMultiConfig = None,
+                 cuda_graph: bool = False) -> None:
         super().__init__(
             data_preprocessor=data_preprocessor, init_cfg=init_cfg)
         self.backbone = MODELS.build(backbone)
@@ -36,6 +37,7 @@ class SingleStageDetector(BaseDetector):
         self.bbox_head = MODELS.build(bbox_head)
         self.train_cfg = train_cfg
         self.test_cfg = test_cfg
+        self.cuda_graph = cuda_graph
         self.graphed = False
 
     def _load_from_state_dict(self, state_dict: dict, prefix: str,
@@ -146,7 +148,7 @@ class SingleStageDetector(BaseDetector):
             different resolutions.
         """
 
-        if not self.graphed:
+        if self.cuda_graph and not self.graphed:
             make_graphed_callables(self.backbone, (batch_inputs,))
             self.graphed = True
 
