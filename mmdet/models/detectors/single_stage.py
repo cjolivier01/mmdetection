@@ -2,11 +2,11 @@
 from typing import List, Tuple, Union
 
 from torch import Tensor
+from torch.cuda.graphs import make_graphed_callables
 
 from mmdet.registry import MODELS
 from mmdet.structures import OptSampleList, SampleList
 from mmdet.utils import ConfigType, OptConfigType, OptMultiConfig
-from torch.cuda.graphs import make_graphed_callables
 from .base import BaseDetector
 
 
@@ -148,7 +148,7 @@ class SingleStageDetector(BaseDetector):
             different resolutions.
         """
 
-        if self.cuda_graph and not self.graphed:
+        if hasattr(self, "cuda_graph") and self.cuda_graph and not self.graphed:
             make_graphed_callables(self.backbone, (batch_inputs,))
             self.graphed = True
 
