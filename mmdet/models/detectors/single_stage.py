@@ -18,15 +18,17 @@ class SingleStageDetector(BaseDetector):
     output features of the backbone+neck.
     """
 
-    def __init__(self,
-                 backbone: ConfigType,
-                 neck: OptConfigType = None,
-                 bbox_head: OptConfigType = None,
-                 train_cfg: OptConfigType = None,
-                 test_cfg: OptConfigType = None,
-                 data_preprocessor: OptConfigType = None,
-                 init_cfg: OptMultiConfig = None,
-                 cuda_graph: bool = False) -> None:
+    def __init__(
+        self,
+        backbone: ConfigType,
+        neck: OptConfigType = None,
+        bbox_head: OptConfigType = None,
+        train_cfg: OptConfigType = None,
+        test_cfg: OptConfigType = None,
+        data_preprocessor: OptConfigType = None,
+        init_cfg: OptMultiConfig = None,
+        cuda_graph: bool = None,
+    ) -> None:
         super().__init__(
             data_preprocessor=data_preprocessor, init_cfg=init_cfg)
         self.backbone = MODELS.build(backbone)
