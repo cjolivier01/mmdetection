@@ -1,12 +1,12 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 from unittest import TestCase
 
-import mmengine
 import torch
+from mmdet.models.tracking_heads import QuasiDenseEmbedHead
+from mmengine.registry import TASK_UTILS
 from mmengine.structures import InstanceData
 
-from mmdet.models.tracking_heads import QuasiDenseEmbedHead
-from mmdet.registry import TASK_UTILS
+import mmengine
 
 
 def _dummy_bbox_sampling(rpn_results_list, batch_gt_instances):

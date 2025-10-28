@@ -10,7 +10,7 @@ try:
 except ImportError:
     HAS_SCIPY = False
 
-from mmdet.registry import TASK_UTILS
+from mmengine.registry import TASK_UTILS
 
 
 @TASK_UTILS.register_module()

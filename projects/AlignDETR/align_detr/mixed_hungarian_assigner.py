@@ -2,13 +2,13 @@
 from typing import List, Optional, Union
 
 import torch
-from mmengine import ConfigDict
+from mmdet.models.task_modules import AssignResult, BaseAssigner
+from mmengine.registry import TASK_UTILS
 from mmengine.structures import InstanceData
 from scipy.optimize import linear_sum_assignment
 from torch import Tensor
 
-from mmdet.models.task_modules import AssignResult, BaseAssigner
-from mmdet.registry import TASK_UTILS
+from mmengine import ConfigDict
 
 
 @TASK_UTILS.register_module()

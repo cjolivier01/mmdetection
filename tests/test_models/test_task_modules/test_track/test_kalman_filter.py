@@ -1,9 +1,7 @@
 from unittest import TestCase
 
 import numpy as np
-from mmengine.registry import init_default_scope
-
-from mmdet.registry import TASK_UTILS
+from mmengine.registry import TASK_UTILS, init_default_scope
 
 
 class TestKalmanFilter(TestCase):

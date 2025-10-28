@@ -2,10 +2,10 @@
 from typing import List, Optional, Tuple
 
 import torch
+from mmengine.registry import TASK_UTILS
 from mmengine.structures import InstanceData
 from torch import Tensor
 
-from mmdet.registry import TASK_UTILS
 from ..prior_generators import anchor_inside_flags
 from .assign_result import AssignResult
 from .base_assigner import BaseAssigner

@@ -2,9 +2,9 @@
 import cv2
 import numpy as np
 import torch
+from mmengine.registry import TASK_UTILS
 from torch import Tensor
 
-from mmdet.registry import TASK_UTILS
 from mmdet.structures.bbox import bbox_cxcyah_to_xyxy, bbox_xyxy_to_cxcyah
 
 

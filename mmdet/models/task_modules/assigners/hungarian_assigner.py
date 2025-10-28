@@ -2,12 +2,13 @@
 from typing import List, Optional, Union
 
 import torch
-from mmengine import ConfigDict
+from mmengine.registry import TASK_UTILS
 from mmengine.structures import InstanceData
 from scipy.optimize import linear_sum_assignment
 from torch import Tensor
 
-from mmdet.registry import TASK_UTILS
+from mmengine import ConfigDict
+
 from .assign_result import AssignResult
 from .base_assigner import BaseAssigner
 

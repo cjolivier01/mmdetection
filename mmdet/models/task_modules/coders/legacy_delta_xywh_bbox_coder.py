@@ -3,10 +3,11 @@ from typing import Optional, Sequence, Union
 
 import numpy as np
 import torch
+from mmengine.registry import TASK_UTILS
 from torch import Tensor
 
-from mmdet.registry import TASK_UTILS
 from mmdet.structures.bbox import BaseBoxes, HorizontalBoxes, get_box_tensor
+
 from .base_bbox_coder import BaseBBoxCoder
 
 

@@ -3,11 +3,12 @@ from typing import Optional, Tuple
 
 import torch
 import torch.nn.functional as F
+from mmengine.registry import TASK_UTILS
 from mmengine.structures import InstanceData
 from torch import Tensor
 
-from mmdet.registry import TASK_UTILS
 from mmdet.utils import ConfigType
+
 from .assign_result import AssignResult
 from .base_assigner import BaseAssigner
 

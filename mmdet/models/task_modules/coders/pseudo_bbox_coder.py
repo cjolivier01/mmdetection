@@ -1,10 +1,11 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 from typing import Union
 
+from mmengine.registry import TASK_UTILS
 from torch import Tensor
 
-from mmdet.registry import TASK_UTILS
 from mmdet.structures.bbox import BaseBoxes, HorizontalBoxes, get_box_tensor
+
 from .base_bbox_coder import BaseBBoxCoder
 
 

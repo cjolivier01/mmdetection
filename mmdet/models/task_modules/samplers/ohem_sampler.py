@@ -1,8 +1,9 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import torch
+from mmengine.registry import TASK_UTILS
 
-from mmdet.registry import TASK_UTILS
 from mmdet.structures.bbox import bbox2roi
+
 from .base_sampler import BaseSampler
 
 

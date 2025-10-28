@@ -3,9 +3,9 @@ from typing import Optional, Union
 
 import torch
 from mmengine.config import ConfigDict
+from mmengine.registry import TASK_UTILS
 from mmengine.structures import InstanceData
 
-from mmdet.registry import TASK_UTILS
 from .assign_result import AssignResult
 from .max_iou_assigner import MaxIoUAssigner
 

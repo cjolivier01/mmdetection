@@ -3,12 +3,13 @@ from typing import Union
 
 import torch
 from mmcv.ops import nms_match
+from mmengine.registry import TASK_UTILS
 from mmengine.structures import InstanceData
 from numpy import ndarray
 from torch import Tensor
 
-from mmdet.registry import TASK_UTILS
 from mmdet.structures.bbox import bbox2roi
+
 from ..assigners import AssignResult
 from .base_sampler import BaseSampler
 from .sampling_result import SamplingResult

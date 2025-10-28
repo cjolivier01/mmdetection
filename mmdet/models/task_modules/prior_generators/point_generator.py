@@ -3,10 +3,9 @@ from typing import List, Tuple, Union
 
 import numpy as np
 import torch
+from mmengine.registry import TASK_UTILS
 from torch import Tensor
 from torch.nn.modules.utils import _pair
-
-from mmdet.registry import TASK_UTILS
 
 DeviceType = Union[str, torch.device]
 

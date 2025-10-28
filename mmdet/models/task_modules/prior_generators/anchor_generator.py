@@ -4,11 +4,11 @@ from typing import List, Optional, Tuple, Union
 
 import numpy as np
 import torch
+from mmengine.registry import TASK_UTILS
 from mmengine.utils import is_tuple_of
 from torch import Tensor
 from torch.nn.modules.utils import _pair
 
-from mmdet.registry import TASK_UTILS
 from mmdet.structures.bbox import HorizontalBoxes
 
 DeviceType = Union[str, torch.device]

@@ -1,5 +1,6 @@
 # Copyright (c) OpenMMLab. All rights reserved.
-from mmdet.registry import TASK_UTILS
+from mmengine.registry import TASK_UTILS
+
 from .base_sampler import BaseSampler
 
 

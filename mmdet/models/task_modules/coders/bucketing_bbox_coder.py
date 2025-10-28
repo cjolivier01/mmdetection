@@ -4,11 +4,16 @@ from typing import Optional, Sequence, Tuple, Union
 import numpy as np
 import torch
 import torch.nn.functional as F
+from mmengine.registry import TASK_UTILS
 from torch import Tensor
 
-from mmdet.registry import TASK_UTILS
-from mmdet.structures.bbox import (BaseBoxes, HorizontalBoxes, bbox_rescale,
-                                   get_box_tensor)
+from mmdet.structures.bbox import (
+    BaseBoxes,
+    HorizontalBoxes,
+    bbox_rescale,
+    get_box_tensor,
+)
+
 from .base_bbox_coder import BaseBBoxCoder
 
 

@@ -1,7 +1,7 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import warnings
 
-from mmdet.registry import TASK_UTILS
+from mmengine.registry import TASK_UTILS
 
 PRIOR_GENERATORS = TASK_UTILS
 ANCHOR_GENERATORS = TASK_UTILS

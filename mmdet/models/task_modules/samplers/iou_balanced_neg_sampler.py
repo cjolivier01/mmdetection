@@ -1,8 +1,8 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import numpy as np
 import torch
+from mmengine.registry import TASK_UTILS
 
-from mmdet.registry import TASK_UTILS
 from .random_sampler import RandomSampler
 
 

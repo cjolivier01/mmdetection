@@ -3,11 +3,9 @@ import warnings
 
 import numpy as np
 import torch
-
-from mmdet.models.task_modules.coders.delta_xywh_bbox_coder import \
-    DeltaXYWHBBoxCoder
-from mmdet.registry import TASK_UTILS
+from mmdet.models.task_modules.coders.delta_xywh_bbox_coder import DeltaXYWHBBoxCoder
 from mmdet.structures.bbox import HorizontalBoxes, get_box_tensor
+from mmengine.registry import TASK_UTILS
 
 
 @TASK_UTILS.register_module()

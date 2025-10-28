@@ -1,8 +1,8 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import torch
+from mmengine.registry import TASK_UTILS
 from mmengine.structures import InstanceData
 
-from mmdet.registry import TASK_UTILS
 from ..assigners import AssignResult
 from .base_sampler import BaseSampler
 from .sampling_result import SamplingResult
