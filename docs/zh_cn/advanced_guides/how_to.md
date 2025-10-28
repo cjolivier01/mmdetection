@@ -127,7 +127,7 @@ custom_hooks = [dict(type="UnfreezeBackboneEpochBasedHook", unfreeze_epoch=1)]
 ```python
 from mmengine.model import is_model_wrapper
 from mmengine.hooks import Hook
-from mmdet.registry import HOOKS
+from mmengine.registry import HOOKS
 
 
 @HOOKS.register_module()

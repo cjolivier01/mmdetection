@@ -128,7 +128,7 @@ Meanwhile write the hook class `UnfreezeBackboneEpochBasedHook` in `mmdet/core/h
 ```python
 from mmengine.model import is_model_wrapper
 from mmengine.hooks import Hook
-from mmdet.registry import HOOKS
+from mmengine.registry import HOOKS
 
 
 @HOOKS.register_module()

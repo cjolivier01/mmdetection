@@ -1,9 +1,8 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 from mmcv.cnn import VGG
 from mmengine.hooks import Hook
+from mmengine.registry import HOOKS
 from mmengine.runner import Runner
-
-from mmdet.registry import HOOKS
 
 
 @HOOKS.register_module()

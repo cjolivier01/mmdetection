@@ -254,7 +254,7 @@ MMEngine 提供了许多有用的[钩子](https://mmdetection.readthedocs.io/en/
 
 ```python
 from mmengine.hooks import Hook
-from mmdet.registry import HOOKS
+from mmengine.registry import HOOKS
 
 
 @HOOKS.register_module()

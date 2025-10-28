@@ -258,7 +258,7 @@ Here we give an example of creating a new hook in mmdet and using it in training
 
 ```python
 from mmengine.hooks import Hook
-from mmdet.registry import HOOKS
+from mmengine.registry import HOOKS
 
 
 @HOOKS.register_module()

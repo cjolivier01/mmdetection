@@ -4,9 +4,8 @@ from typing import Optional
 import torch.nn as nn
 from mmengine.hooks import Hook
 from mmengine.model import is_model_wrapper
+from mmengine.registry import HOOKS
 from mmengine.runner import Runner
-
-from mmdet.registry import HOOKS
 
 
 @HOOKS.register_module()

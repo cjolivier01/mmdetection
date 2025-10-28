@@ -3,8 +3,7 @@ from typing import Sequence
 
 from mmengine.hooks import Hook
 from mmengine.model import is_model_wrapper
-
-from mmdet.registry import HOOKS
+from mmengine.registry import HOOKS
 
 
 @HOOKS.register_module()

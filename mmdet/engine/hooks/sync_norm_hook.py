@@ -1,12 +1,12 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 from collections import OrderedDict
 
-from mmengine.dist import get_dist_info
 from mmengine.hooks import Hook
+from mmengine.registry import HOOKS
 from torch import nn
 
-from mmdet.registry import HOOKS
 from mmdet.utils import all_reduce_dict
+from mmengine.dist import get_dist_info
 
 
 def get_norm_states(module: nn.Module) -> OrderedDict:
