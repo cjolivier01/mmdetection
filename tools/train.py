@@ -3,11 +3,10 @@ import argparse
 import os
 import os.path as osp
 
+from mmdet.utils import setup_cache_size_limit_of_dynamo
 from mmengine.config import Config, DictAction
 from mmengine.registry import RUNNERS
 from mmengine.runner import Runner
-
-from mmdet.utils import setup_cache_size_limit_of_dynamo
 
 
 def parse_args():
@@ -65,7 +64,7 @@ def main():
     setup_cache_size_limit_of_dynamo()
 
     # load config
-    cfg = Config.fromfile(args.config)
+    cfg = Config.fromfile(args.config, lazy_import=False)
     cfg.launcher = args.launcher
     if args.cfg_options is not None:
         cfg.merge_from_dict(args.cfg_options)
@@ -103,6 +102,10 @@ def main():
     elif args.resume is not None:
         cfg.resume = True
         cfg.load_from = args.resume
+
+    if "model" not in cfg and "detector_standalone_model" in cfg:
+        # support standalone model config
+        cfg.model = cfg.detector_standalone_model
 
     # build the runner from config
     if 'runner_type' not in cfg:
