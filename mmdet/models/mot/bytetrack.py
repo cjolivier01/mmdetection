@@ -1,11 +1,12 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 from typing import Dict, Optional
 
+from mmengine.registry import MODELS
 from torch import Tensor
 
-from mmdet.registry import MODELS
 from mmdet.structures import SampleList, TrackSampleList
 from mmdet.utils import OptConfigType, OptMultiConfig
+
 from .base import BaseMOTModel
 
 

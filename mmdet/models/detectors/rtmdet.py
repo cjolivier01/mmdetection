@@ -1,10 +1,11 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import torch
-from mmengine.dist import get_world_size
 from mmengine.logging import print_log
+from mmengine.registry import MODELS
 
-from mmdet.registry import MODELS
 from mmdet.utils import ConfigType, OptConfigType, OptMultiConfig
+from mmengine.dist import get_world_size
+
 from .single_stage import SingleStageDetector
 
 

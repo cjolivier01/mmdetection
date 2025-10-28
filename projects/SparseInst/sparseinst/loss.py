@@ -3,11 +3,10 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from mmdet.utils import reduce_mean
+from mmengine.registry import MODELS, TASK_UTILS
 from scipy.optimize import linear_sum_assignment
 from torch.cuda.amp import autocast
-
-from mmdet.registry import MODELS, TASK_UTILS
-from mmdet.utils import reduce_mean
 
 
 def compute_mask_iou(inputs, targets):

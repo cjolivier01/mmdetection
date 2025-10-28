@@ -3,11 +3,10 @@ import unittest
 from unittest import TestCase
 
 import torch
-from parameterized import parameterized
-
 from mmdet.structures import DetDataSample
 from mmdet.testing import demo_mm_inputs, get_detector_cfg
 from mmdet.utils import register_all_modules
+from parameterized import parameterized
 
 
 class TestRPN(TestCase):
@@ -23,7 +22,8 @@ class TestRPN(TestCase):
         model.neck.in_channels = [64, 128, 256, 512]
         model.backbone.init_cfg = None
 
-        from mmdet.registry import MODELS
+        from mmengine.registry import MODELS
+
         detector = MODELS.build(model)
         self.assertTrue(detector.backbone)
         self.assertTrue(detector.neck)
@@ -42,7 +42,8 @@ class TestRPN(TestCase):
         model.neck.in_channels = [64, 128, 256, 512]
         model.backbone.init_cfg = None
 
-        from mmdet.registry import MODELS
+        from mmengine.registry import MODELS
+
         assert all([device in ['cpu', 'cuda'] for device in devices])
 
         for device in devices:
@@ -67,7 +68,8 @@ class TestRPN(TestCase):
         model.neck.in_channels = [64, 128, 256, 512]
         model.backbone.init_cfg = None
 
-        from mmdet.registry import MODELS
+        from mmengine.registry import MODELS
+
         assert all([device in ['cpu', 'cuda'] for device in devices])
 
         for device in devices:
@@ -95,7 +97,8 @@ class TestRPN(TestCase):
         model.neck.in_channels = [64, 128, 256, 512]
         model.backbone.init_cfg = None
 
-        from mmdet.registry import MODELS
+        from mmengine.registry import MODELS
+
         assert all([device in ['cpu', 'cuda'] for device in devices])
 
         for device in devices:

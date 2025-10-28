@@ -2,9 +2,9 @@
 from typing import List, Optional
 
 from mmengine.model import BaseModule
+from mmengine.registry import MODELS, TASK_UTILS
 from torch import Tensor
 
-from mmdet.registry import MODELS, TASK_UTILS
 from mmdet.structures import TrackSampleList
 from mmdet.structures.bbox import bbox2roi
 from mmdet.utils import InstanceList

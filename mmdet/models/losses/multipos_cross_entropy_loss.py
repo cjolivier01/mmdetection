@@ -3,9 +3,9 @@ from typing import Optional
 
 import torch
 from mmengine.model import BaseModule
+from mmengine.registry import MODELS
 from torch import Tensor
 
-from mmdet.registry import MODELS
 from .utils import weight_reduce_loss
 
 

@@ -1,8 +1,8 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import torch.nn as nn
 from mmcv.cnn import ConvModule
+from mmengine.registry import MODELS
 
-from mmdet.registry import MODELS
 from .anchor_head import AnchorHead
 
 

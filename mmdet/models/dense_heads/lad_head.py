@@ -2,12 +2,13 @@
 from typing import List, Optional
 
 import torch
+from mmengine.registry import MODELS
 from torch import Tensor
 
-from mmdet.registry import MODELS
 from mmdet.structures import SampleList
 from mmdet.structures.bbox import bbox_overlaps
 from mmdet.utils import InstanceList, OptInstanceList
+
 from ..utils import levels_to_images, multi_apply, unpack_gt_instances
 from .paa_head import PAAHead
 

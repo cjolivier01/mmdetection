@@ -7,6 +7,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from mmcv.cnn import ConvModule
 from mmengine.config import ConfigDict
+from mmengine.registry import MODELS, TASK_UTILS
 from mmengine.structures import InstanceData
 from torch import Tensor
 
@@ -14,8 +15,8 @@ from mmdet.models.layers import multiclass_nms
 from mmdet.models.losses import accuracy
 from mmdet.models.task_modules import SamplingResult
 from mmdet.models.utils import multi_apply
-from mmdet.registry import MODELS, TASK_UTILS
 from mmdet.utils import ConfigType, InstanceList, OptConfigType, OptMultiConfig
+
 from .bbox_head import BBoxHead
 
 

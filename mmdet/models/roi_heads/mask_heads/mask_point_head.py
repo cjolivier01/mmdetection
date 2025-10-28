@@ -8,13 +8,15 @@ import torch.nn as nn
 from mmcv.cnn import ConvModule
 from mmcv.ops import point_sample, rel_roi_point_to_rel_img_point
 from mmengine.model import BaseModule
+from mmengine.registry import MODELS
 from mmengine.structures import InstanceData
 from torch import Tensor
 
 from mmdet.models.task_modules.samplers import SamplingResult
-from mmdet.models.utils import (get_uncertain_point_coords_with_randomness,
-                                get_uncertainty)
-from mmdet.registry import MODELS
+from mmdet.models.utils import (
+    get_uncertain_point_coords_with_randomness,
+    get_uncertainty,
+)
 from mmdet.structures.bbox import bbox2roi
 from mmdet.utils import ConfigType, InstanceList, MultiConfig, OptConfigType
 

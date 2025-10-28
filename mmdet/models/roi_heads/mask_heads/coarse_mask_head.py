@@ -1,10 +1,11 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 from mmcv.cnn import ConvModule, Linear
 from mmengine.model import ModuleList
+from mmengine.registry import MODELS
 from torch import Tensor
 
-from mmdet.registry import MODELS
 from mmdet.utils import MultiConfig
+
 from .fcn_mask_head import FCNMaskHead
 
 

@@ -3,11 +3,10 @@ from unittest import TestCase
 from unittest.mock import MagicMock
 
 import torch
-from parameterized import parameterized
-
-from mmdet.registry import MODELS, TASK_UTILS
 from mmdet.testing import demo_track_inputs, get_detector_cfg, random_boxes
 from mmdet.utils import register_all_modules
+from mmengine.registry import MODELS, TASK_UTILS
+from parameterized import parameterized
 
 
 class TestSORTTracker(TestCase):

@@ -2,12 +2,11 @@
 from unittest import TestCase
 
 import torch
-from mmengine.structures import InstanceData
-
-from mmdet.registry import MODELS
 from mmdet.structures import DetDataSample
 from mmdet.testing import get_detector_cfg
 from mmdet.utils import register_all_modules
+from mmengine.registry import MODELS
+from mmengine.structures import InstanceData
 
 
 class TestDETR(TestCase):

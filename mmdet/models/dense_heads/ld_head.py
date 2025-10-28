@@ -2,12 +2,13 @@
 from typing import List, Tuple
 
 import torch
+from mmengine.registry import MODELS
 from torch import Tensor
 
-from mmdet.registry import MODELS
 from mmdet.structures import SampleList
 from mmdet.structures.bbox import bbox_overlaps
 from mmdet.utils import ConfigType, InstanceList, OptInstanceList, reduce_mean
+
 from ..utils import multi_apply, unpack_gt_instances
 from .gfl_head import GFLHead
 

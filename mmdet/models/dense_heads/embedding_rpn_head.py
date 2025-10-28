@@ -4,10 +4,10 @@ from typing import List
 import torch
 import torch.nn as nn
 from mmengine.model import BaseModule
+from mmengine.registry import MODELS
 from mmengine.structures import InstanceData
 from torch import Tensor
 
-from mmdet.registry import MODELS
 from mmdet.structures.bbox import bbox_cxcywh_to_xyxy
 from mmdet.structures.det_data_sample import SampleList
 from mmdet.utils import InstanceList, OptConfigType

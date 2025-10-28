@@ -5,11 +5,12 @@ import torch
 import torch.nn as nn
 from mmcv.cnn import ConvModule, is_norm
 from mmengine.model import bias_init_with_prob, constant_init, normal_init
+from mmengine.registry import MODELS
 from mmengine.structures import InstanceData
 from torch import Tensor
 
-from mmdet.registry import MODELS
 from mmdet.utils import ConfigType, InstanceList, OptInstanceList, reduce_mean
+
 from ..task_modules.prior_generators import anchor_inside_flags
 from ..utils import levels_to_images, multi_apply, unmap
 from .anchor_head import AnchorHead

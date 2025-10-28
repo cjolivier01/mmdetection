@@ -9,13 +9,13 @@ from mmcv.cnn import ConvModule, build_conv_layer, build_upsample_layer
 from mmcv.ops.carafe import CARAFEPack
 from mmengine.config import ConfigDict
 from mmengine.model import BaseModule, ModuleList
+from mmengine.registry import MODELS
 from mmengine.structures import InstanceData
 from torch import Tensor
 from torch.nn.modules.utils import _pair
 
 from mmdet.models.task_modules.samplers import SamplingResult
 from mmdet.models.utils import empty_instances
-from mmdet.registry import MODELS
 from mmdet.structures.mask import mask_target
 from mmdet.utils import ConfigType, InstanceList, OptConfigType, OptMultiConfig
 

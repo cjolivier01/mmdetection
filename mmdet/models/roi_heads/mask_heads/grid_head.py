@@ -8,11 +8,11 @@ import torch.nn.functional as F
 from mmcv.cnn import ConvModule
 from mmengine.config import ConfigDict
 from mmengine.model import BaseModule
+from mmengine.registry import MODELS
 from mmengine.structures import InstanceData
 from torch import Tensor
 
 from mmdet.models.task_modules.samplers import SamplingResult
-from mmdet.registry import MODELS
 from mmdet.utils import ConfigType, InstanceList, MultiConfig, OptConfigType
 
 

@@ -3,14 +3,15 @@ from typing import List
 
 import torch
 import torch.nn.functional as F
+from mmengine.registry import MODELS
 from mmengine.structures import InstanceData, PixelData
 from torch import Tensor
 
 from mmdet.evaluation.functional import INSTANCE_OFFSET
-from mmdet.registry import MODELS
 from mmdet.structures import SampleList
 from mmdet.structures.mask import mask2bbox
 from mmdet.utils import OptConfigType, OptMultiConfig
+
 from .base_panoptic_fusion_head import BasePanopticFusionHead
 
 

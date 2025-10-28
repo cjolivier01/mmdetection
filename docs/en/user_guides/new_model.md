@@ -69,7 +69,7 @@ Firstly create a new file `mmdet/models/necks/augfpn.py`.
 
 ```python
 import torch.nn as nn
-from mmdet.registry import MODELS
+from mmengine.registry import MODELS
 
 
 @MODELS.register_module()

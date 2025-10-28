@@ -6,13 +6,13 @@ import torch
 import torch.nn.functional as F
 from mmcv.cnn import ConvModule
 from mmengine.config import ConfigDict
+from mmengine.registry import MODELS
 from mmengine.structures import InstanceData
 from torch import Tensor, nn
 
 from mmdet.models.roi_heads.bbox_heads.bbox_head import BBoxHead
 from mmdet.models.task_modules.samplers import SamplingResult
 from mmdet.models.utils import empty_instances
-from mmdet.registry import MODELS
 from mmdet.structures.bbox import bbox_overlaps
 
 

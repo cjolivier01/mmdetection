@@ -2,10 +2,11 @@
 from typing import List, Optional, Tuple
 
 import torch
+from mmengine.registry import MODELS
 from torch import Tensor
 
-from mmdet.registry import MODELS
 from mmdet.utils import ConfigType, OptMultiConfig
+
 from .base_roi_extractor import BaseRoIExtractor
 
 

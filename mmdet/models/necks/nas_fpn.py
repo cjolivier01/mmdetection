@@ -5,9 +5,9 @@ import torch.nn as nn
 from mmcv.cnn import ConvModule
 from mmcv.ops.merge_cells import GlobalPoolingCell, SumCell
 from mmengine.model import BaseModule, ModuleList
+from mmengine.registry import MODELS
 from torch import Tensor
 
-from mmdet.registry import MODELS
 from mmdet.utils import MultiConfig, OptConfigType
 
 

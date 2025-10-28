@@ -1,10 +1,10 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 from typing import Optional, Union
 
+from mmengine.registry import MODELS
 from torch import Tensor
 
 from mmdet.models.mot import BaseMOTModel
-from mmdet.registry import MODELS
 from mmdet.structures import TrackDataSample, TrackSampleList
 from mmdet.utils import OptConfigType, OptMultiConfig
 

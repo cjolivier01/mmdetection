@@ -2,15 +2,13 @@
 from typing import Tuple
 
 import torch
-from torch import Tensor, nn
-from torch.nn.init import normal_
-
 from mmdet.models.detectors import DINO, DeformableDETR
-from mmdet.models.detectors.deformable_detr import \
-    MultiScaleDeformableAttention
-from mmdet.registry import MODELS
+from mmdet.models.detectors.deformable_detr import MultiScaleDeformableAttention
 from mmdet.structures import OptSampleList
 from mmdet.utils import OptConfigType
+from mmengine.registry import MODELS
+from torch import Tensor, nn
+from torch.nn.init import normal_
 
 
 @MODELS.register_module()

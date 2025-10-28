@@ -1,8 +1,8 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import torch
 import torch.nn as nn
+from mmengine.registry import MODELS
 
-from mmdet.registry import MODELS
 from .utils import weight_reduce_loss
 
 

@@ -4,8 +4,8 @@ import warnings
 import torch.nn as nn
 from mmcv.cnn import VGG
 from mmengine.model import BaseModule
+from mmengine.registry import MODELS
 
-from mmdet.registry import MODELS
 from ..necks import ssd_neck
 
 

@@ -2,12 +2,15 @@
 from typing import Dict, Tuple
 
 from mmengine.model import uniform_init
+from mmengine.registry import MODELS
 from torch import Tensor, nn
 
-from mmdet.registry import MODELS
 from ..layers import SinePositionalEncoding
-from ..layers.transformer import (DABDetrTransformerDecoder,
-                                  DABDetrTransformerEncoder, inverse_sigmoid)
+from ..layers.transformer import (
+    DABDetrTransformerDecoder,
+    DABDetrTransformerEncoder,
+    inverse_sigmoid,
+)
 from .detr import DETR
 
 

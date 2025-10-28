@@ -4,9 +4,8 @@ import torch.nn as nn
 import torch.nn.functional as F
 from mmcv.cnn import ConvModule
 from mmengine.model import BaseModule
+from mmengine.registry import MODELS
 from torch.utils.checkpoint import checkpoint
-
-from mmdet.registry import MODELS
 
 
 @MODELS.register_module()

@@ -6,10 +6,9 @@ from os.path import dirname, exists, join
 
 import pytest
 from mmengine.config import Config
+from mmengine.registry import MODELS
 from mmengine.runner import CheckpointLoader
 from mmengine.utils import ProgressBar
-
-from mmdet.registry import MODELS
 
 
 def _get_config_directory():

@@ -1,11 +1,17 @@
 import torch
+from mmengine.registry import MODELS
 from torch import nn
 from torch.nn import functional as F
 
-from mmdet.registry import MODELS
 from .language_model import LanguageEncoder
-from .transformer_blocks import (MLP, Conv2d, CrossAttentionLayer, FFNLayer,
-                                 PositionEmbeddingSine, SelfAttentionLayer)
+from .transformer_blocks import (
+    MLP,
+    Conv2d,
+    CrossAttentionLayer,
+    FFNLayer,
+    PositionEmbeddingSine,
+    SelfAttentionLayer,
+)
 from .utils import is_lower_torch_version
 
 

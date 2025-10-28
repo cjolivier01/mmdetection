@@ -7,11 +7,12 @@ from mmcv.cnn import ConvModule
 from mmcv.ops import DeformConv2d
 from mmengine.config import ConfigDict
 from mmengine.model import BaseModule
+from mmengine.registry import MODELS
 from mmengine.structures import InstanceData
 from torch import Tensor
 
-from mmdet.registry import MODELS
 from mmdet.utils import InstanceList, OptInstanceList, OptMultiConfig
+
 from ..utils import filter_scores_and_topk, multi_apply
 from .anchor_free_head import AnchorFreeHead
 

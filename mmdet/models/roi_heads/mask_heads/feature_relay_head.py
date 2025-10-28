@@ -3,9 +3,9 @@ from typing import Optional
 
 import torch.nn as nn
 from mmengine.model import BaseModule
+from mmengine.registry import MODELS
 from torch import Tensor
 
-from mmdet.registry import MODELS
 from mmdet.utils import MultiConfig
 
 

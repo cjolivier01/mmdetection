@@ -3,11 +3,9 @@ from unittest import TestCase
 from unittest.mock import MagicMock
 
 import torch
-from mmengine.registry import init_default_scope
-from parameterized import parameterized
-
-from mmdet.registry import MODELS, TASK_UTILS
 from mmdet.testing import demo_track_inputs, get_detector_cfg, random_boxes
+from mmengine.registry import MODELS, TASK_UTILS, init_default_scope
+from parameterized import parameterized
 
 
 class TestStrongSORTTracker(TestCase):

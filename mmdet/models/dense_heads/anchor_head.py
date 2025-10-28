@@ -4,15 +4,20 @@ from typing import List, Optional, Tuple, Union
 
 import torch
 import torch.nn as nn
+from mmengine.registry import MODELS, TASK_UTILS
 from mmengine.structures import InstanceData
 from torch import Tensor
 
-from mmdet.registry import MODELS, TASK_UTILS
 from mmdet.structures.bbox import BaseBoxes, cat_boxes, get_box_tensor
-from mmdet.utils import (ConfigType, InstanceList, OptConfigType,
-                         OptInstanceList, OptMultiConfig)
-from ..task_modules.prior_generators import (AnchorGenerator,
-                                             anchor_inside_flags)
+from mmdet.utils import (
+    ConfigType,
+    InstanceList,
+    OptConfigType,
+    OptInstanceList,
+    OptMultiConfig,
+)
+
+from ..task_modules.prior_generators import AnchorGenerator, anchor_inside_flags
 from ..task_modules.samplers import PseudoSampler
 from ..utils import images_to_levels, multi_apply, unmap
 from .base_dense_head import BaseDenseHead

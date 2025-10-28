@@ -10,13 +10,14 @@ try:
     from motmetrics.lap import linear_sum_assignment
 except ImportError:
     motmetrics = None
+from mmengine.registry import MODELS
 from torch import Tensor
 
 from mmdet.models.utils import imrenormalize
-from mmdet.registry import MODELS
 from mmdet.structures import TrackDataSample
 from mmdet.structures.bbox import bbox_overlaps, bbox_xyxy_to_cxcyah
 from mmdet.utils import OptConfigType
+
 from .sort_tracker import SORTTracker
 
 

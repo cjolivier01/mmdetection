@@ -4,11 +4,10 @@ from typing import List
 import torch.nn as nn
 import torch.nn.functional as F
 from mmcv.cnn import ConvModule, build_norm_layer
-from mmengine.model import BaseModule
-from torch import Tensor
-
-from mmdet.registry import MODELS
 from mmdet.utils import MultiConfig, OptConfigType
+from mmengine.model import BaseModule
+from mmengine.registry import MODELS
+from torch import Tensor
 
 
 @MODELS.register_module()

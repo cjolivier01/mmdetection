@@ -1,15 +1,14 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 from typing import Optional, Union
 
-from mmengine.config import ConfigDict
-from mmengine.structures import InstanceData
-from torch import Tensor
-
 from mmdet.models.layers import multiclass_nms
 from mmdet.models.roi_heads.bbox_heads import Shared2FCBBoxHead
 from mmdet.models.utils import empty_instances
-from mmdet.registry import MODELS
 from mmdet.structures.bbox import get_box_tensor, scale_boxes
+from mmengine.config import ConfigDict
+from mmengine.registry import MODELS
+from mmengine.structures import InstanceData
+from torch import Tensor
 
 
 @MODELS.register_module(force=True)  # avoid bug

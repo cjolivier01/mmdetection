@@ -4,11 +4,10 @@ from unittest import TestCase
 
 import torch
 import torch.nn as nn
-from parameterized import parameterized
-
 from mmdet.models.roi_heads import StandardRoIHead  # noqa
-from mmdet.registry import MODELS
 from mmdet.testing import demo_mm_inputs, demo_mm_proposals, get_roi_head_cfg
+from mmengine.registry import MODELS
+from parameterized import parameterized
 
 
 class TestCascadeRoIHead(TestCase):

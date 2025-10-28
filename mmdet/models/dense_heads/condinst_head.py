@@ -8,16 +8,28 @@ import torch.nn.functional as F
 from mmcv.cnn import ConvModule, Scale
 from mmengine.config import ConfigDict
 from mmengine.model import BaseModule, kaiming_init
+from mmengine.registry import MODELS
 from mmengine.structures import InstanceData
 from torch import Tensor
 
-from mmdet.registry import MODELS
 from mmdet.structures.bbox import cat_boxes
-from mmdet.utils import (ConfigType, InstanceList, MultiConfig, OptConfigType,
-                         OptInstanceList, reduce_mean)
+from mmdet.utils import (
+    ConfigType,
+    InstanceList,
+    MultiConfig,
+    OptConfigType,
+    OptInstanceList,
+    reduce_mean,
+)
+
 from ..task_modules.prior_generators import MlvlPointGenerator
-from ..utils import (aligned_bilinear, filter_scores_and_topk, multi_apply,
-                     relative_coordinate_maps, select_single_mlvl)
+from ..utils import (
+    aligned_bilinear,
+    filter_scores_and_topk,
+    multi_apply,
+    relative_coordinate_maps,
+    select_single_mlvl,
+)
 from ..utils.misc import empty_instances
 from .base_mask_head import BaseMaskHead
 from .fcos_head import FCOSHead

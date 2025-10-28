@@ -1,18 +1,19 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 from typing import List, Optional, Tuple
 
-import mmcv
 import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from mmcv.cnn import ConvModule
+from mmengine.registry import MODELS
 from mmengine.structures import InstanceData
 from torch import Tensor
 
+import mmcv
 from mmdet.models.utils.misc import floordiv
-from mmdet.registry import MODELS
 from mmdet.utils import ConfigType, InstanceList, MultiConfig, OptConfigType
+
 from ..layers import mask_matrix_nms
 from ..utils import center_of_mass, generate_coordinate, multi_apply
 from .base_mask_head import BaseMaskHead

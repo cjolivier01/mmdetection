@@ -4,9 +4,9 @@ from typing import Optional, Tuple, Union
 import numpy as np
 import torch
 from mmengine.model import BaseModule
+from mmengine.registry import MODELS
 from torch import Tensor
 
-from mmdet.registry import MODELS
 from .utils import weighted_loss
 
 

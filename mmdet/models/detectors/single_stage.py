@@ -1,12 +1,13 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 from typing import List, Tuple, Union
 
+from mmengine.registry import MODELS
 from torch import Tensor
 from torch.cuda.graphs import make_graphed_callables
 
-from mmdet.registry import MODELS
 from mmdet.structures import OptSampleList, SampleList
 from mmdet.utils import ConfigType, OptConfigType, OptMultiConfig
+
 from .base import BaseDetector
 
 

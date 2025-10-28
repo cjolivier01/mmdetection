@@ -3,11 +3,12 @@ import copy
 import warnings
 
 import torch
+from mmengine.registry import MODELS
 from torch import Tensor
 
-from mmdet.registry import MODELS
 from mmdet.structures import SampleList
 from mmdet.utils import ConfigType, OptConfigType, OptMultiConfig
+
 from .single_stage import SingleStageDetector
 
 

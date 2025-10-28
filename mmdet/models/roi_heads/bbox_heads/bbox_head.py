@@ -6,6 +6,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from mmengine.config import ConfigDict
 from mmengine.model import BaseModule
+from mmengine.registry import MODELS, TASK_UTILS
 from mmengine.structures import InstanceData
 from torch import Tensor
 from torch.nn.modules.utils import _pair
@@ -14,7 +15,6 @@ from mmdet.models.layers import multiclass_nms
 from mmdet.models.losses import accuracy
 from mmdet.models.task_modules.samplers import SamplingResult
 from mmdet.models.utils import empty_instances, multi_apply
-from mmdet.registry import MODELS, TASK_UTILS
 from mmdet.structures.bbox import get_box_tensor, scale_boxes
 from mmdet.utils import ConfigType, InstanceList, OptMultiConfig
 

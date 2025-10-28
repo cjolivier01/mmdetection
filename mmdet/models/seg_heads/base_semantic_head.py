@@ -4,9 +4,9 @@ from typing import Dict, List, Tuple, Union
 
 import torch.nn.functional as F
 from mmengine.model import BaseModule
+from mmengine.registry import MODELS
 from torch import Tensor
 
-from mmdet.registry import MODELS
 from mmdet.structures import SampleList
 from mmdet.utils import ConfigType, OptMultiConfig
 

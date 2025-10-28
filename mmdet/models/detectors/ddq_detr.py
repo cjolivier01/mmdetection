@@ -4,13 +4,14 @@ from typing import Dict, Tuple
 # Copyright (c) OpenMMLab. All rights reserved.
 import torch
 from mmcv.ops import MultiScaleDeformableAttention, batched_nms
+from mmengine.registry import MODELS
 from torch import Tensor, nn
 from torch.nn.init import normal_
 
-from mmdet.registry import MODELS
 from mmdet.structures import OptSampleList
 from mmdet.structures.bbox import bbox_cxcywh_to_xyxy
 from mmdet.utils import OptConfigType
+
 from ..layers import DDQTransformerDecoder
 from ..utils import align_tensor
 from .deformable_detr import DeformableDETR

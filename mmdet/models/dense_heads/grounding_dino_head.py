@@ -7,14 +7,15 @@ import torch
 import torch.nn as nn
 from mmcv.cnn import Linear
 from mmengine.model import constant_init
+from mmengine.registry import MODELS
 from mmengine.structures import InstanceData
 from torch import Tensor
 
 from mmdet.models.losses import QualityFocalLoss
-from mmdet.registry import MODELS
 from mmdet.structures import SampleList
 from mmdet.structures.bbox import bbox_cxcywh_to_xyxy, bbox_xyxy_to_cxcywh
 from mmdet.utils import InstanceList, reduce_mean
+
 from ..layers import inverse_sigmoid
 from .atss_vlfusion_head import convert_grounding_to_cls_scores
 from .dino_head import DINOHead

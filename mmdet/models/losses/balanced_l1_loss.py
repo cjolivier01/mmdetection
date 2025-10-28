@@ -2,8 +2,8 @@
 import numpy as np
 import torch
 import torch.nn as nn
+from mmengine.registry import MODELS
 
-from mmdet.registry import MODELS
 from .utils import weighted_loss
 
 

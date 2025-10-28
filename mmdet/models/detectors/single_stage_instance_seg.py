@@ -2,11 +2,12 @@
 import copy
 from typing import Tuple
 
+from mmengine.registry import MODELS
 from torch import Tensor
 
-from mmdet.registry import MODELS
 from mmdet.structures import OptSampleList, SampleList
 from mmdet.utils import ConfigType, OptConfigType, OptMultiConfig
+
 from .base import BaseDetector
 
 INF = 1e8

@@ -1,15 +1,14 @@
 from typing import List, Tuple
 
 import torch
-from torch import Tensor
-
 from mmdet.models.roi_heads import StandardRoIHead
 from mmdet.models.task_modules.samplers import SamplingResult
 from mmdet.models.utils import unpack_gt_instances
-from mmdet.registry import MODELS
 from mmdet.structures import DetDataSample
 from mmdet.structures.bbox import bbox2roi
 from mmdet.utils import InstanceList
+from mmengine.registry import MODELS
+from torch import Tensor
 
 
 @MODELS.register_module()

@@ -1,10 +1,10 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import torch
 import torch.nn as nn
+from mmengine.registry import MODELS, TASK_UTILS
 from mmengine.structures import BaseDataElement
 
 from mmdet.models.utils import multi_apply
-from mmdet.registry import MODELS, TASK_UTILS
 from mmdet.utils import reduce_mean
 
 

@@ -5,9 +5,8 @@ from typing import Optional
 import torch
 import torch.nn as nn
 from mmengine.model import ExponentialMovingAverage
+from mmengine.registry import MODELS
 from torch import Tensor
-
-from mmdet.registry import MODELS
 
 
 @MODELS.register_module()

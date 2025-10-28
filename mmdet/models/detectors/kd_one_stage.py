@@ -5,12 +5,13 @@ from typing import Any, Optional, Union
 import torch
 import torch.nn as nn
 from mmengine.config import Config
+from mmengine.registry import MODELS
 from mmengine.runner import load_checkpoint
 from torch import Tensor
 
-from mmdet.registry import MODELS
 from mmdet.structures import SampleList
 from mmdet.utils import ConfigType, OptConfigType
+
 from .single_stage import SingleStageDetector
 
 

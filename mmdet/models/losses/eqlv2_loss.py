@@ -8,9 +8,8 @@ import torch.distributed as dist
 import torch.nn as nn
 import torch.nn.functional as F
 from mmengine.logging import print_log
+from mmengine.registry import MODELS
 from torch import Tensor
-
-from mmdet.registry import MODELS
 
 
 @MODELS.register_module()

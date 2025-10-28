@@ -2,8 +2,8 @@
 import torch.nn as nn
 import torch.nn.functional as F
 from mmcv.cnn import ConvModule
+from mmengine.registry import MODELS
 
-from mmdet.registry import MODELS
 from .fpn import FPN
 
 

@@ -70,7 +70,7 @@ python tools/dataset_converters/cityscapes.py ./data/cityscapes --nproc 8 --out-
 
 ```python
 import torch.nn as nn
-from mmdet.registry import MODELS
+from mmengine.registry import MODELS
 
 @MODELS.register_module()
 class AugFPN(nn.Module):

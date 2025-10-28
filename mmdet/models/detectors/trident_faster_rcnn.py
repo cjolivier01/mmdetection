@@ -1,9 +1,10 @@
 # Copyright (c) OpenMMLab. All rights reserved.
+from mmengine.registry import MODELS
 from torch import Tensor
 
-from mmdet.registry import MODELS
 from mmdet.structures import SampleList
 from mmdet.utils import ConfigType, OptConfigType, OptMultiConfig
+
 from .faster_rcnn import FasterRCNN
 
 

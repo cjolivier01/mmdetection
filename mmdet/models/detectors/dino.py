@@ -2,14 +2,19 @@
 from typing import Dict, Optional, Tuple
 
 import torch
+from mmengine.registry import MODELS
 from torch import Tensor, nn
 from torch.nn.init import normal_
 
-from mmdet.registry import MODELS
 from mmdet.structures import OptSampleList
 from mmdet.utils import OptConfigType
-from ..layers import (CdnQueryGenerator, DeformableDetrTransformerEncoder,
-                      DinoTransformerDecoder, SinePositionalEncoding)
+
+from ..layers import (
+    CdnQueryGenerator,
+    DeformableDetrTransformerEncoder,
+    DinoTransformerDecoder,
+    SinePositionalEncoding,
+)
 from .deformable_detr import DeformableDETR, MultiScaleDeformableAttention
 
 

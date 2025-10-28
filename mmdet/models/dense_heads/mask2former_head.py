@@ -8,12 +8,13 @@ import torch.nn.functional as F
 from mmcv.cnn import Conv2d
 from mmcv.ops import point_sample
 from mmengine.model import ModuleList, caffe2_xavier_init
+from mmengine.registry import MODELS, TASK_UTILS
 from mmengine.structures import InstanceData
 from torch import Tensor
 
-from mmdet.registry import MODELS, TASK_UTILS
 from mmdet.structures import SampleList
 from mmdet.utils import ConfigType, OptConfigType, OptMultiConfig, reduce_mean
+
 from ..layers import Mask2FormerTransformerDecoder, SinePositionalEncoding
 from ..utils import get_uncertain_point_coords_with_randomness
 from .anchor_free_head import AnchorFreeHead

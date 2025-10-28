@@ -2,8 +2,8 @@
 import math
 
 from mmcv.cnn import build_conv_layer, build_norm_layer
+from mmengine.registry import MODELS
 
-from mmdet.registry import MODELS
 from ..layers import ResLayer
 from .resnet import Bottleneck as _Bottleneck
 from .resnet import ResNet

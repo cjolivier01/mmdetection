@@ -13,7 +13,7 @@ except ImportError:
     AutoTokenizer = None
     HFBertModel = None
 
-from mmdet.registry import MODELS
+from mmengine.registry import MODELS
 
 
 def generate_masks_with_special_tokens_and_transfer_map(

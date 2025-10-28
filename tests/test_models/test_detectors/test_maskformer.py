@@ -2,12 +2,11 @@
 import unittest
 
 import torch
-from parameterized import parameterized
-
-from mmdet.registry import MODELS
 from mmdet.structures import DetDataSample
 from mmdet.testing._utils import demo_mm_inputs, get_detector_cfg
 from mmdet.utils import register_all_modules
+from mmengine.registry import MODELS
+from parameterized import parameterized
 
 
 class TestMaskFormer(unittest.TestCase):

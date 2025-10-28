@@ -4,9 +4,9 @@ from functools import partial
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from mmengine.registry import MODELS
 
 from mmdet.models.losses.utils import weighted_loss
-from mmdet.registry import MODELS
 
 
 @weighted_loss

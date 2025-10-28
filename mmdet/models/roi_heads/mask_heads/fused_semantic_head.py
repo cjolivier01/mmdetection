@@ -7,9 +7,9 @@ import torch.nn.functional as F
 from mmcv.cnn import ConvModule
 from mmengine.config import ConfigDict
 from mmengine.model import BaseModule
+from mmengine.registry import MODELS
 from torch import Tensor
 
-from mmdet.registry import MODELS
 from mmdet.utils import MultiConfig, OptConfigType
 
 

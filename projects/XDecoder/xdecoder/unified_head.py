@@ -2,14 +2,13 @@ import copy
 from typing import Sequence
 
 import torch
+from mmdet.evaluation.functional import INSTANCE_OFFSET
+from mmengine.registry import MODELS
 from mmengine.structures import InstanceData, PixelData
 from torch import nn
 from torch.nn import functional as F
 
-from mmdet.evaluation.functional import INSTANCE_OFFSET
-from mmdet.registry import MODELS
-from .utils import (is_lower_torch_version, retry_if_cuda_oom,
-                    sem_seg_postprocess)
+from .utils import is_lower_torch_version, retry_if_cuda_oom, sem_seg_postprocess
 
 
 @MODELS.register_module()

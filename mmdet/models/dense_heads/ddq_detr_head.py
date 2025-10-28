@@ -4,12 +4,13 @@ from typing import Dict, List, Tuple
 
 import torch
 from mmengine.model import bias_init_with_prob, constant_init
+from mmengine.registry import MODELS
 from torch import Tensor, nn
 
-from mmdet.registry import MODELS
 from mmdet.structures import SampleList
 from mmdet.structures.bbox import bbox_cxcywh_to_xyxy
 from mmdet.utils import InstanceList, OptInstanceList, reduce_mean
+
 from ..layers import inverse_sigmoid
 from ..losses import DDQAuxLoss
 from ..utils import multi_apply

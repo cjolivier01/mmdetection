@@ -2,11 +2,14 @@
 from typing import Dict
 
 import torch.nn as nn
+from mmengine.registry import MODELS
 from torch import Tensor
 
-from mmdet.registry import MODELS
-from ..layers import (ConditionalDetrTransformerDecoder,
-                      DetrTransformerEncoder, SinePositionalEncoding)
+from ..layers import (
+    ConditionalDetrTransformerDecoder,
+    DetrTransformerEncoder,
+    SinePositionalEncoding,
+)
 from .detr import DETR
 
 

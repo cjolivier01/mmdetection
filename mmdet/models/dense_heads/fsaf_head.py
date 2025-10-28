@@ -3,11 +3,12 @@ from typing import Dict, List, Optional, Tuple
 
 import numpy as np
 import torch
+from mmengine.registry import MODELS
 from mmengine.structures import InstanceData
 from torch import Tensor
 
-from mmdet.registry import MODELS
 from mmdet.utils import InstanceList, OptInstanceList, OptMultiConfig
+
 from ..losses.accuracy import accuracy
 from ..losses.utils import weight_reduce_loss
 from ..task_modules.prior_generators import anchor_inside_flags

@@ -2,12 +2,11 @@
 from unittest import TestCase
 
 import torch
-from parameterized import parameterized
-
-from mmdet.registry import MODELS
 from mmdet.structures import ReIDDataSample
 from mmdet.testing import get_detector_cfg
 from mmdet.utils import register_all_modules
+from mmengine.registry import MODELS
+from parameterized import parameterized
 
 
 class TestBaseReID(TestCase):

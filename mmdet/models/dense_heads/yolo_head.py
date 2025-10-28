@@ -10,12 +10,12 @@ import torch.nn as nn
 import torch.nn.functional as F
 from mmcv.cnn import ConvModule, is_norm
 from mmengine.model import bias_init_with_prob, constant_init, normal_init
+from mmengine.registry import MODELS, TASK_UTILS
 from mmengine.structures import InstanceData
 from torch import Tensor
 
-from mmdet.registry import MODELS, TASK_UTILS
-from mmdet.utils import (ConfigType, InstanceList, OptConfigType,
-                         OptInstanceList)
+from mmdet.utils import ConfigType, InstanceList, OptConfigType, OptInstanceList
+
 from ..task_modules.samplers import PseudoSampler
 from ..utils import filter_scores_and_topk, images_to_levels, multi_apply
 from .base_dense_head import BaseDenseHead

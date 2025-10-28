@@ -4,11 +4,12 @@ from typing import Tuple
 import torch.nn as nn
 from mmcv.cnn import Linear
 from mmengine.model import bias_init_with_prob, constant_init
+from mmengine.registry import MODELS
 from torch import Tensor
 
-from mmdet.registry import MODELS
 from mmdet.structures import SampleList
 from mmdet.utils import InstanceList
+
 from ..layers import MLP, inverse_sigmoid
 from .conditional_detr_head import ConditionalDETRHead
 

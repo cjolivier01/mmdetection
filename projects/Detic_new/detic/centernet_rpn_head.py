@@ -5,17 +5,23 @@ from typing import Dict, List, Optional, Sequence, Tuple
 import torch
 import torch.nn as nn
 from mmcv.cnn import Scale
-from mmengine import ConfigDict
+from mmdet.models.dense_heads import CenterNetUpdateHead
+from mmdet.models.utils import unpack_gt_instances
+from mmdet.structures import SampleList
+from mmdet.structures.bbox import bbox2distance
+from mmdet.utils import (
+    ConfigType,
+    InstanceList,
+    OptConfigType,
+    OptInstanceList,
+    reduce_mean,
+)
+from mmengine.registry import MODELS
 from mmengine.structures import InstanceData
 from torch import Tensor
 
-from mmdet.models.dense_heads import CenterNetUpdateHead
-from mmdet.models.utils import unpack_gt_instances
-from mmdet.registry import MODELS
-from mmdet.structures import SampleList
-from mmdet.structures.bbox import bbox2distance
-from mmdet.utils import (ConfigType, InstanceList, OptConfigType,
-                         OptInstanceList, reduce_mean)
+from mmengine import ConfigDict
+
 from .iou_loss import IOULoss
 
 # from .heatmap_focal_loss import binary_heatmap_focal_loss_jit

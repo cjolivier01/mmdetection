@@ -1,10 +1,9 @@
 # Copyright (c) Facebook, Inc. and its affiliates.
 import numpy as np
 import torch
+from mmengine.registry import MODELS
 from torch import nn
 from torch.nn import functional as F
-
-from mmdet.registry import MODELS
 
 
 @MODELS.register_module()

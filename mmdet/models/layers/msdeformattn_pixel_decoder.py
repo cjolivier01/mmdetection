@@ -6,12 +6,18 @@ import torch.nn as nn
 import torch.nn.functional as F
 from mmcv.cnn import Conv2d, ConvModule
 from mmcv.cnn.bricks.transformer import MultiScaleDeformableAttention
-from mmengine.model import (BaseModule, ModuleList, caffe2_xavier_init,
-                            normal_init, xavier_init)
+from mmengine.model import (
+    BaseModule,
+    ModuleList,
+    caffe2_xavier_init,
+    normal_init,
+    xavier_init,
+)
+from mmengine.registry import MODELS
 from torch import Tensor
 
-from mmdet.registry import MODELS
 from mmdet.utils import ConfigType, OptMultiConfig
+
 from ..task_modules.prior_generators import MlvlPointGenerator
 from .positional_encoding import SinePositionalEncoding
 from .transformer import Mask2FormerTransformerEncoder

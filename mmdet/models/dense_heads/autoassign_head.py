@@ -6,12 +6,13 @@ import torch.nn as nn
 import torch.nn.functional as F
 from mmcv.cnn import Scale
 from mmengine.model import bias_init_with_prob, normal_init
+from mmengine.registry import MODELS
 from mmengine.structures import InstanceData
 from torch import Tensor
 
-from mmdet.registry import MODELS
 from mmdet.structures.bbox import bbox_overlaps
 from mmdet.utils import InstanceList, OptInstanceList, reduce_mean
+
 from ..task_modules.prior_generators import MlvlPointGenerator
 from ..utils import levels_to_images, multi_apply
 from .fcos_head import FCOSHead

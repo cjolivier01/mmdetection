@@ -6,15 +6,26 @@ import torch.nn as nn
 from mmcv.ops import batched_nms
 from mmengine.config import ConfigDict
 from mmengine.model import bias_init_with_prob, normal_init
+from mmengine.registry import MODELS
 from mmengine.structures import InstanceData
 from torch import Tensor
 
-from mmdet.registry import MODELS
-from mmdet.utils import (ConfigType, InstanceList, OptConfigType,
-                         OptInstanceList, OptMultiConfig)
-from ..utils import (gaussian_radius, gen_gaussian_target, get_local_maximum,
-                     get_topk_from_heatmap, multi_apply,
-                     transpose_and_gather_feat)
+from mmdet.utils import (
+    ConfigType,
+    InstanceList,
+    OptConfigType,
+    OptInstanceList,
+    OptMultiConfig,
+)
+
+from ..utils import (
+    gaussian_radius,
+    gen_gaussian_target,
+    get_local_maximum,
+    get_topk_from_heatmap,
+    multi_apply,
+    transpose_and_gather_feat,
+)
 from .base_dense_head import BaseDenseHead
 
 

@@ -4,10 +4,11 @@ from typing import Tuple
 import torch.nn as nn
 from mmcv.cnn import ConvModule
 from mmengine.model import bias_init_with_prob, normal_init
+from mmengine.registry import MODELS
 from torch import Tensor
 
-from mmdet.registry import MODELS
 from mmdet.utils import OptConfigType, OptMultiConfig
+
 from .anchor_head import AnchorHead
 
 

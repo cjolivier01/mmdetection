@@ -6,15 +6,20 @@ import torch
 import torch.nn as nn
 from mmcv.cnn import ConvModule
 from mmengine.config import ConfigDict
+from mmengine.registry import MODELS, TASK_UTILS
 from mmengine.structures import InstanceData
 from torch import Tensor
 
-from mmdet.registry import MODELS, TASK_UTILS
-from mmdet.utils import (ConfigType, InstanceList, MultiConfig, OptConfigType,
-                         OptInstanceList)
+from mmdet.utils import (
+    ConfigType,
+    InstanceList,
+    MultiConfig,
+    OptConfigType,
+    OptInstanceList,
+)
+
 from ..task_modules.samplers import PseudoSampler
-from ..utils import (filter_scores_and_topk, images_to_levels, multi_apply,
-                     unmap)
+from ..utils import filter_scores_and_topk, images_to_levels, multi_apply, unmap
 from .base_dense_head import BaseDenseHead
 from .guided_anchor_head import GuidedAnchorHead
 

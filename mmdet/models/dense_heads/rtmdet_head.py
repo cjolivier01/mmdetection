@@ -5,16 +5,16 @@ import torch
 import torch.nn as nn
 from mmcv.cnn import ConvModule, DepthwiseSeparableConvModule, Scale, is_norm
 from mmengine.model import bias_init_with_prob, constant_init, normal_init
+from mmengine.registry import MODELS, TASK_UTILS
 from mmengine.structures import InstanceData
 from torch import Tensor
 
-from mmdet.registry import MODELS, TASK_UTILS
 from mmdet.structures.bbox import distance2bbox
 from mmdet.utils import ConfigType, InstanceList, OptInstanceList, reduce_mean
+
 from ..layers.transformer import inverse_sigmoid
 from ..task_modules import anchor_inside_flags
-from ..utils import (images_to_levels, multi_apply, sigmoid_geometric_mean,
-                     unmap)
+from ..utils import images_to_levels, multi_apply, sigmoid_geometric_mean, unmap
 from .atss_head import ATSSHead
 
 

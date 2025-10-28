@@ -3,9 +3,9 @@ from typing import Optional
 
 import torch
 import torch.nn as nn
+from mmengine.registry import MODELS
 from torch import Tensor
 
-from mmdet.registry import MODELS
 from .utils import weighted_loss
 
 

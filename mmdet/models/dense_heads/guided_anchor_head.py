@@ -5,12 +5,18 @@ import torch
 import torch.nn as nn
 from mmcv.ops import DeformConv2d, MaskedConv2d
 from mmengine.model import BaseModule
+from mmengine.registry import MODELS, TASK_UTILS
 from mmengine.structures import InstanceData
 from torch import Tensor
 
-from mmdet.registry import MODELS, TASK_UTILS
-from mmdet.utils import (ConfigType, InstanceList, MultiConfig, OptConfigType,
-                         OptInstanceList)
+from mmdet.utils import (
+    ConfigType,
+    InstanceList,
+    MultiConfig,
+    OptConfigType,
+    OptInstanceList,
+)
+
 from ..layers import multiclass_nms
 from ..task_modules.prior_generators import anchor_inside_flags, calc_region
 from ..task_modules.samplers import PseudoSampler

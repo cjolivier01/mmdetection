@@ -2,12 +2,13 @@
 from typing import Optional
 
 import numpy as np
+from mmengine.registry import MODELS, TASK_UTILS
 from mmengine.structures import InstanceData
 from torch import Tensor
 
-from mmdet.registry import MODELS, TASK_UTILS
 from mmdet.structures import TrackSampleList
 from mmdet.utils import OptConfigType
+
 from .deep_sort import DeepSORT
 
 

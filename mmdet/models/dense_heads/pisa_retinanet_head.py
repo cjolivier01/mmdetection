@@ -2,10 +2,11 @@
 from typing import List
 
 import torch
+from mmengine.registry import MODELS
 from torch import Tensor
 
-from mmdet.registry import MODELS
 from mmdet.utils import InstanceList, OptInstanceList
+
 from ..losses import carl_loss, isr_p
 from ..utils import images_to_levels
 from .retina_head import RetinaHead

@@ -3,10 +3,10 @@ from typing import List
 import torch
 import torch.nn as nn
 from mmcv.cnn.bricks import Swish
-from mmengine.model import BaseModule
-
-from mmdet.registry import MODELS
 from mmdet.utils import MultiConfig, OptConfigType
+from mmengine.model import BaseModule
+from mmengine.registry import MODELS
+
 from .utils import DepthWiseConvBlock, DownChannelBlock, MaxPool2dSamePadding
 
 

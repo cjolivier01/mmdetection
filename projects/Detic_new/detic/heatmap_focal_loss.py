@@ -3,9 +3,8 @@ from typing import Optional, Union
 
 import torch
 import torch.nn as nn
+from mmengine.registry import MODELS
 from torch import Tensor
-
-from mmdet.registry import MODELS
 
 
 # support class-agnostic heatmap_focal_loss

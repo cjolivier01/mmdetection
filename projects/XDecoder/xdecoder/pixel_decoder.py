@@ -1,12 +1,16 @@
 from typing import Callable, Optional, Union
 
+from mmengine.registry import MODELS
 from torch import nn
 from torch.nn import functional as F
 
-from mmdet.registry import MODELS
-from .transformer_blocks import (Conv2d, PositionEmbeddingSine,
-                                 TransformerEncoder, TransformerEncoderLayer,
-                                 get_norm)
+from .transformer_blocks import (
+    Conv2d,
+    PositionEmbeddingSine,
+    TransformerEncoder,
+    TransformerEncoderLayer,
+    get_norm,
+)
 
 # modified from https://github.com/microsoft/X-Decoder/blob/main/xdecoder/body/encoder/transformer_encoder_fpn.py # noqa
 

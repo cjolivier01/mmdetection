@@ -18,12 +18,19 @@ try:
 except ImportError:
     BertConfig = None
 
-from mmdet.registry import MODELS
+from mmengine.registry import MODELS
+
 from mmdet.structures.bbox import cat_boxes
 from mmdet.utils import InstanceList, OptInstanceList, reduce_mean
-from ..utils import (BertEncoderLayer, VLFuse, filter_scores_and_topk,
-                     permute_and_flatten, select_single_mlvl,
-                     unpack_gt_instances)
+
+from ..utils import (
+    BertEncoderLayer,
+    VLFuse,
+    filter_scores_and_topk,
+    permute_and_flatten,
+    select_single_mlvl,
+    unpack_gt_instances,
+)
 from ..utils.vlfuse_helper import MAX_CLAMP_VALUE
 from .atss_head import ATSSHead
 

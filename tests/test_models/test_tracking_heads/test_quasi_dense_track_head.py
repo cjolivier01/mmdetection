@@ -2,12 +2,12 @@
 from unittest import TestCase
 
 import torch
-from mmengine import init_default_scope
+from mmdet.testing import demo_track_inputs, random_boxes
 from mmengine.config import Config
+from mmengine.registry import MODELS
 from mmengine.structures import InstanceData
 
-from mmdet.registry import MODELS
-from mmdet.testing import demo_track_inputs, random_boxes
+from mmengine import init_default_scope
 
 
 def _fake_proposals(img_metas, proposal_len):

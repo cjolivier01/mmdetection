@@ -2,10 +2,9 @@
 from unittest import TestCase
 
 import torch
-
-from mmdet.registry import MODELS
 from mmdet.structures import ReIDDataSample
 from mmdet.utils import register_all_modules
+from mmengine.registry import MODELS
 
 
 class TestLinearReIDHead(TestCase):

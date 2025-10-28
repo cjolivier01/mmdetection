@@ -1,6 +1,8 @@
 # Copyright (c) OpenMMLab. All rights reserved.
-from mmdet.registry import MODELS
+from mmengine.registry import MODELS
+
 from mmdet.utils import ConfigType, OptConfigType, OptMultiConfig
+
 from .two_stage import TwoStageDetector
 
 

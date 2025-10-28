@@ -4,15 +4,20 @@ from typing import List, Tuple
 import torch
 import torch.nn as nn
 from mmcv.cnn.bricks import Swish, build_norm_layer
-from mmengine.model import bias_init_with_prob
-from torch import Tensor
-
 from mmdet.models.dense_heads.anchor_head import AnchorHead
 from mmdet.models.utils import images_to_levels, multi_apply
-from mmdet.registry import MODELS
 from mmdet.structures.bbox import cat_boxes, get_box_tensor
-from mmdet.utils import (InstanceList, OptConfigType, OptInstanceList,
-                         OptMultiConfig, reduce_mean)
+from mmdet.utils import (
+    InstanceList,
+    OptConfigType,
+    OptInstanceList,
+    OptMultiConfig,
+    reduce_mean,
+)
+from mmengine.model import bias_init_with_prob
+from mmengine.registry import MODELS
+from torch import Tensor
+
 from .utils import DepthWiseConvBlock
 
 

@@ -6,13 +6,13 @@ import torch
 import torch.nn as nn
 from mmcv.cnn import ConvModule
 from mmengine.model import BaseModule
+from mmengine.registry import MODELS
 from torch import Tensor
 from torch.nn.modules.utils import _pair
 
 from mmdet.models.losses import accuracy
 from mmdet.models.task_modules import SamplingResult
 from mmdet.models.task_modules.tracking import embed_similarity
-from mmdet.registry import MODELS
 
 
 @MODELS.register_module()

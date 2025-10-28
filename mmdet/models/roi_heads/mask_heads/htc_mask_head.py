@@ -2,9 +2,9 @@
 from typing import List, Optional, Union
 
 from mmcv.cnn import ConvModule
+from mmengine.registry import MODELS
 from torch import Tensor
 
-from mmdet.registry import MODELS
 from .fcn_mask_head import FCNMaskHead
 
 

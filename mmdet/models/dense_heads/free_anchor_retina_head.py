@@ -3,12 +3,13 @@ from typing import List
 
 import torch
 import torch.nn.functional as F
+from mmengine.registry import MODELS
 from mmengine.structures import InstanceData
 from torch import Tensor
 
-from mmdet.registry import MODELS
 from mmdet.structures.bbox import bbox_overlaps
 from mmdet.utils import InstanceList, OptConfigType, OptInstanceList
+
 from ..utils import multi_apply
 from .retina_head import RetinaHead
 

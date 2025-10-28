@@ -6,10 +6,11 @@ import torch.nn as nn
 import torch.nn.functional as F
 from mmcv.cnn import Conv2d, ConvModule
 from mmengine.model import BaseModule, ModuleList, caffe2_xavier_init
+from mmengine.registry import MODELS
 from torch import Tensor
 
-from mmdet.registry import MODELS
 from mmdet.utils import ConfigType, OptMultiConfig
+
 from .positional_encoding import SinePositionalEncoding
 from .transformer import DetrTransformerEncoder
 

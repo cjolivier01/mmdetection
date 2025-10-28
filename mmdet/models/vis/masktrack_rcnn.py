@@ -2,10 +2,10 @@
 from typing import Optional
 
 import torch
+from mmengine.registry import MODELS
 from torch import Tensor
 
 from mmdet.models.mot import BaseMOTModel
-from mmdet.registry import MODELS
 from mmdet.structures import TrackSampleList
 from mmdet.utils import OptConfigType, OptMultiConfig
 

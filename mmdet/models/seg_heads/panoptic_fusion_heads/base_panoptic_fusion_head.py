@@ -2,8 +2,8 @@
 from abc import ABCMeta, abstractmethod
 
 from mmengine.model import BaseModule
+from mmengine.registry import MODELS
 
-from mmdet.registry import MODELS
 from mmdet.utils import OptConfigType, OptMultiConfig
 
 

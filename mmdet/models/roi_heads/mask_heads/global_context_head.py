@@ -4,10 +4,10 @@ from typing import List, Tuple
 import torch.nn as nn
 from mmcv.cnn import ConvModule
 from mmengine.model import BaseModule
+from mmengine.registry import MODELS
 from torch import Tensor
 
 from mmdet.models.layers import ResLayer, SimplifiedBasicBlock
-from mmdet.registry import MODELS
 from mmdet.utils import MultiConfig, OptConfigType
 
 

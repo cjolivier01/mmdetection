@@ -3,9 +3,9 @@ from abc import ABCMeta, abstractmethod
 from typing import Tuple
 
 from mmengine.model import BaseModule
+from mmengine.registry import MODELS
 from torch import Tensor
 
-from mmdet.registry import MODELS
 from mmdet.structures import SampleList
 from mmdet.utils import InstanceList, OptConfigType, OptMultiConfig
 

@@ -2,8 +2,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-
-from mmdet.registry import MODELS
+from mmengine.registry import MODELS
 
 
 def ae_loss_per_image(tl_preds, br_preds, match):

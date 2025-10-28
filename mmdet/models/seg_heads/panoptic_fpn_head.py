@@ -5,11 +5,12 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from mmengine.model import ModuleList
+from mmengine.registry import MODELS
 from torch import Tensor
 
-from mmdet.registry import MODELS
 from mmdet.structures import SampleList
 from mmdet.utils import ConfigType, OptConfigType, OptMultiConfig
+
 from ..layers import ConvUpsample
 from ..utils import interpolate_as
 from .base_semantic_head import BaseSemanticHead

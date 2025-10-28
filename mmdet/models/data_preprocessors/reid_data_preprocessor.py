@@ -6,14 +6,17 @@ from typing import Optional, Sequence
 import torch
 import torch.nn.functional as F
 from mmengine.model import BaseDataPreprocessor, stack_batch
-
-from mmdet.registry import MODELS
+from mmengine.registry import MODELS
 
 try:
-    import mmpretrain
     from mmpretrain.models.utils.batch_augments import RandomBatchAugment
-    from mmpretrain.structures import (batch_label_to_onehot, cat_batch_labels,
-                                       tensor_split)
+    from mmpretrain.structures import (
+        batch_label_to_onehot,
+        cat_batch_labels,
+        tensor_split,
+    )
+
+    import mmpretrain
 except ImportError:
     mmpretrain = None
 

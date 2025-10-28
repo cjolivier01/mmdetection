@@ -21,7 +21,7 @@
 ```python
 import torch.nn as nn
 
-from mmdet.registry import MODELS
+from mmengine.registry import MODELS
 
 
 @MODELS.register_module()
@@ -73,7 +73,7 @@ model = dict(
 ```python
 import torch.nn as nn
 
-from mmdet.registry import MODELS
+from mmengine.registry import MODELS
 
 
 @MODELS.register_module()
@@ -137,7 +137,7 @@ from mmengine.model import BaseModule, ModuleList
 from torch import Tensor
 
 from mmdet.models.backbones.resnet import Bottleneck
-from mmdet.registry import MODELS
+from mmengine.registry import MODELS
 from mmdet.utils import ConfigType, MultiConfig, OptConfigType, OptMultiConfig
 from .bbox_head import BBoxHead
 
@@ -190,7 +190,7 @@ from typing import List, Optional, Tuple
 import torch
 from torch import Tensor
 
-from mmdet.registry import MODELS, TASK_UTILS
+from mmengine.registry import MODELS, TASK_UTILS
 from mmdet.structures import DetDataSample
 from mmdet.structures.bbox import bbox2roi
 from mmdet.utils import ConfigType, InstanceList
@@ -254,7 +254,7 @@ from typing import Tuple
 
 from torch import Tensor
 
-from mmdet.registry import MODELS
+from mmengine.registry import MODELS
 from .standard_roi_head import StandardRoIHead
 
 

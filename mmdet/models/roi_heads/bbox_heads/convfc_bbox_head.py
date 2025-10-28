@@ -4,9 +4,9 @@ from typing import Optional, Tuple, Union
 import torch.nn as nn
 from mmcv.cnn import ConvModule
 from mmengine.config import ConfigDict
+from mmengine.registry import MODELS
 from torch import Tensor
 
-from mmdet.registry import MODELS
 from .bbox_head import BBoxHead
 
 

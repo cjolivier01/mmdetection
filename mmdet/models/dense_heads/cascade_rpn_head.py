@@ -1,5 +1,6 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 from __future__ import division
+
 import copy
 from typing import Dict, List, Optional, Tuple, Union
 
@@ -8,17 +9,27 @@ import torch.nn as nn
 from mmcv.ops import DeformConv2d
 from mmengine.config import ConfigDict
 from mmengine.model import BaseModule, ModuleList
+from mmengine.registry import MODELS, TASK_UTILS
 from mmengine.structures import InstanceData
 from torch import Tensor
 
-from mmdet.registry import MODELS, TASK_UTILS
 from mmdet.structures import SampleList
-from mmdet.utils import (ConfigType, InstanceList, MultiConfig,
-                         OptInstanceList, OptMultiConfig)
+from mmdet.utils import (
+    ConfigType,
+    InstanceList,
+    MultiConfig,
+    OptInstanceList,
+    OptMultiConfig,
+)
+
 from ..task_modules.assigners import RegionAssigner
 from ..task_modules.samplers import PseudoSampler
-from ..utils import (images_to_levels, multi_apply, select_single_mlvl,
-                     unpack_gt_instances)
+from ..utils import (
+    images_to_levels,
+    multi_apply,
+    select_single_mlvl,
+    unpack_gt_instances,
+)
 from .base_dense_head import BaseDenseHead
 from .rpn_head import RPNHead
 

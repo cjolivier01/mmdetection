@@ -2,11 +2,12 @@
 from abc import ABCMeta, abstractmethod
 from typing import Dict, List, Tuple, Union
 
+from mmengine.registry import MODELS
 from torch import Tensor
 
-from mmdet.registry import MODELS
 from mmdet.structures import OptSampleList, SampleList
 from mmdet.utils import ConfigType, OptConfigType, OptMultiConfig
+
 from .base import BaseDetector
 
 

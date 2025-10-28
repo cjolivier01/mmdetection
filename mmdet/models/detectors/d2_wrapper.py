@@ -2,14 +2,15 @@
 from typing import Union
 
 from mmengine.config import ConfigDict
+from mmengine.registry import MODELS
 from mmengine.structures import InstanceData
 from torch import Tensor
 
-from mmdet.registry import MODELS
 from mmdet.structures import SampleList
 from mmdet.structures.bbox import BaseBoxes
 from mmdet.structures.mask import BitmapMasks, PolygonMasks
 from mmdet.utils import ConfigType
+
 from .base import BaseDetector
 
 try:

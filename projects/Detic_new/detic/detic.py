@@ -6,13 +6,12 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from mmengine.logging import print_log
-from torch import Tensor
-
 from mmdet.datasets import LVISV1Dataset
 from mmdet.models.detectors.cascade_rcnn import CascadeRCNN
-from mmdet.registry import MODELS
 from mmdet.structures import SampleList
+from mmengine.logging import print_log
+from mmengine.registry import MODELS
+from torch import Tensor
 
 
 class CLIPTextEncoder(nn.Module):

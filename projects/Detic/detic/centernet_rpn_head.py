@@ -5,13 +5,13 @@ from typing import List, Sequence, Tuple
 import torch
 import torch.nn as nn
 from mmcv.cnn import Scale
-from mmengine import ConfigDict
+from mmdet.models.dense_heads import CenterNetUpdateHead
+from mmdet.models.utils import multi_apply
+from mmengine.registry import MODELS
 from mmengine.structures import InstanceData
 from torch import Tensor
 
-from mmdet.models.dense_heads import CenterNetUpdateHead
-from mmdet.models.utils import multi_apply
-from mmdet.registry import MODELS
+from mmengine import ConfigDict
 
 INF = 1000000000
 RangeType = Sequence[Tuple[int, int]]

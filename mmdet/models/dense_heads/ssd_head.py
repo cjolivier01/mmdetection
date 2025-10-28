@@ -5,10 +5,11 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from mmcv.cnn import ConvModule, DepthwiseSeparableConvModule
+from mmengine.registry import MODELS, TASK_UTILS
 from torch import Tensor
 
-from mmdet.registry import MODELS, TASK_UTILS
 from mmdet.utils import ConfigType, InstanceList, MultiConfig, OptInstanceList
+
 from ..losses import smooth_l1_loss
 from ..task_modules.samplers import PseudoSampler
 from ..utils import multi_apply

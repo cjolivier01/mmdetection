@@ -6,17 +6,19 @@ from typing import Dict, Optional, Tuple, Union
 
 import torch
 import torch.nn as nn
+from mmengine.registry import MODELS
 from torch import Tensor
 
-from mmdet.registry import MODELS
 from mmdet.structures import OptSampleList, SampleList
 from mmdet.utils import ConfigType
+
 from ..layers import SinePositionalEncoding
 from ..layers.transformer.grounding_dino_layers import (
-    GroundingDinoTransformerDecoder, GroundingDinoTransformerEncoder)
+    GroundingDinoTransformerDecoder,
+    GroundingDinoTransformerEncoder,
+)
 from .dino import DINO
-from .glip import (create_positive_map, create_positive_map_label_to_token,
-                   run_ner)
+from .glip import create_positive_map, create_positive_map_label_to_token, run_ner
 
 
 def clean_label_name(name: str) -> str:

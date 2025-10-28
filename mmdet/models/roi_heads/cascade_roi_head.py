@@ -4,16 +4,22 @@ from typing import List, Sequence, Tuple, Union
 import torch
 import torch.nn as nn
 from mmengine.model import ModuleList
+from mmengine.registry import MODELS, TASK_UTILS
 from mmengine.structures import InstanceData
 from torch import Tensor
 
 from mmdet.models.task_modules.samplers import SamplingResult
 from mmdet.models.test_time_augs import merge_aug_masks
-from mmdet.registry import MODELS, TASK_UTILS
 from mmdet.structures import SampleList
 from mmdet.structures.bbox import bbox2roi, get_box_tensor
-from mmdet.utils import (ConfigType, InstanceList, MultiConfig, OptConfigType,
-                         OptMultiConfig)
+from mmdet.utils import (
+    ConfigType,
+    InstanceList,
+    MultiConfig,
+    OptConfigType,
+    OptMultiConfig,
+)
+
 from ..utils.misc import empty_instances, unpack_gt_instances
 from .base_roi_head import BaseRoIHead
 

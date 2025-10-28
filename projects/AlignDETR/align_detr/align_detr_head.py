@@ -2,14 +2,17 @@
 from typing import Any, Dict, List, Tuple, Union
 
 import torch
+from mmdet.models.dense_heads import DINOHead
+from mmdet.structures.bbox import (
+    bbox_cxcywh_to_xyxy,
+    bbox_overlaps,
+    bbox_xyxy_to_cxcywh,
+)
+from mmdet.utils import InstanceList
+from mmengine.registry import MODELS
 from mmengine.structures import InstanceData
 from torch import Tensor
 
-from mmdet.models.dense_heads import DINOHead
-from mmdet.registry import MODELS
-from mmdet.structures.bbox import (bbox_cxcywh_to_xyxy, bbox_overlaps,
-                                   bbox_xyxy_to_cxcywh)
-from mmdet.utils import InstanceList
 from .utils import KeysRecorder
 
 

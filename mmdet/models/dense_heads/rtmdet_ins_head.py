@@ -8,18 +8,27 @@ import torch.nn as nn
 import torch.nn.functional as F
 from mmcv.cnn import ConvModule, is_norm
 from mmcv.ops import batched_nms
-from mmengine.model import (BaseModule, bias_init_with_prob, constant_init,
-                            normal_init)
+from mmengine.model import BaseModule, bias_init_with_prob, constant_init, normal_init
+from mmengine.registry import MODELS
 from mmengine.structures import InstanceData
 from torch import Tensor
 
 from mmdet.models.layers.transformer import inverse_sigmoid
-from mmdet.models.utils import (filter_scores_and_topk, multi_apply,
-                                select_single_mlvl, sigmoid_geometric_mean)
-from mmdet.registry import MODELS
-from mmdet.structures.bbox import (cat_boxes, distance2bbox, get_box_tensor,
-                                   get_box_wh, scale_boxes)
+from mmdet.models.utils import (
+    filter_scores_and_topk,
+    multi_apply,
+    select_single_mlvl,
+    sigmoid_geometric_mean,
+)
+from mmdet.structures.bbox import (
+    cat_boxes,
+    distance2bbox,
+    get_box_tensor,
+    get_box_wh,
+    scale_boxes,
+)
 from mmdet.utils import ConfigType, InstanceList, OptInstanceList, reduce_mean
+
 from .rtmdet_head import RTMDetHead
 
 

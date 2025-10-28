@@ -7,14 +7,15 @@ except ImportError:
     lap = None
 import numpy as np
 import torch
-from mmdet.registry import MODELS, TASK_UTILS
+from mmengine.registry import MODELS, TASK_UTILS
+from mmengine.structures import InstanceData
+
 from mmdet.structures import DetDataSample
 from mmdet.structures.bbox import (
     bbox_cxcyah_to_xyxy,
     bbox_overlaps,
     bbox_xyxy_to_cxcyah,
 )
-from mmengine.structures import InstanceData
 
 from .base_tracker import BaseTracker
 

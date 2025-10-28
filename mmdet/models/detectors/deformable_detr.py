@@ -6,14 +6,18 @@ import torch
 import torch.nn.functional as F
 from mmcv.cnn.bricks.transformer import MultiScaleDeformableAttention
 from mmengine.model import xavier_init
+from mmengine.registry import MODELS
 from torch import Tensor, nn
 from torch.nn.init import normal_
 
-from mmdet.registry import MODELS
 from mmdet.structures import OptSampleList
 from mmdet.utils import OptConfigType
-from ..layers import (DeformableDetrTransformerDecoder,
-                      DeformableDetrTransformerEncoder, SinePositionalEncoding)
+
+from ..layers import (
+    DeformableDetrTransformerDecoder,
+    DeformableDetrTransformerEncoder,
+    SinePositionalEncoding,
+)
 from .base_detr import DetectionTransformer
 
 

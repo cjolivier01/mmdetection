@@ -1,9 +1,8 @@
-from torch import Tensor
-
 from mmdet.models.detectors.single_stage import SingleStageDetector
-from mmdet.registry import MODELS
 from mmdet.structures import SampleList
 from mmdet.utils import ConfigType, OptConfigType, OptMultiConfig
+from mmengine.registry import MODELS
+from torch import Tensor
 
 
 @MODELS.register_module()

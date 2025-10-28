@@ -5,11 +5,12 @@ from typing import Sequence, Tuple
 import torch.nn as nn
 from mmcv.cnn import ConvModule, DepthwiseSeparableConvModule
 from mmengine.model import BaseModule
+from mmengine.registry import MODELS
 from torch import Tensor
 from torch.nn.modules.batchnorm import _BatchNorm
 
-from mmdet.registry import MODELS
 from mmdet.utils import ConfigType, OptConfigType, OptMultiConfig
+
 from ..layers import CSPLayer
 from .csp_darknet import SPPBottleneck
 

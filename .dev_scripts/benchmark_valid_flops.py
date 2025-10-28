@@ -9,12 +9,13 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import torch
-from mmengine import Config, DictAction
+from mmdet.utils import register_all_modules
 from mmengine.analysis import get_model_complexity_info
 from mmengine.analysis.print_helper import _format_size
 from mmengine.fileio import FileClient
 from mmengine.logging import MMLogger
 from mmengine.model import revert_sync_batchnorm
+from mmengine.registry import MODELS
 from mmengine.runner import Runner
 from modelindex.load_model_index import load
 from rich.console import Console
@@ -22,8 +23,7 @@ from rich.table import Table
 from rich.text import Text
 from tqdm import tqdm
 
-from mmdet.registry import MODELS
-from mmdet.utils import register_all_modules
+from mmengine import Config, DictAction
 
 console = Console()
 MMDET_ROOT = Path(__file__).absolute().parents[1]

@@ -3,11 +3,10 @@ import unittest
 from unittest import TestCase
 
 import torch
-from parameterized import parameterized
-
 from mmdet.structures import DetDataSample
 from mmdet.testing import demo_mm_inputs, get_detector_cfg
 from mmdet.utils import register_all_modules
+from parameterized import parameterized
 
 
 class TestTwoStageBBox(TestCase):
@@ -27,7 +26,8 @@ class TestTwoStageBBox(TestCase):
         model.neck.in_channels = [64, 128, 256, 512]
         model.backbone.init_cfg = None
 
-        from mmdet.registry import MODELS
+        from mmengine.registry import MODELS
+
         detector = MODELS.build(model)
         self.assertTrue(detector.backbone)
         self.assertTrue(detector.neck)
@@ -52,7 +52,8 @@ class TestTwoStageBBox(TestCase):
         model.neck.in_channels = [64, 128, 256, 512]
         model.backbone.init_cfg = None
 
-        from mmdet.registry import MODELS
+        from mmengine.registry import MODELS
+
         detector = MODELS.build(model)
 
         if not torch.cuda.is_available():
@@ -78,7 +79,8 @@ class TestTwoStageBBox(TestCase):
         model.neck.in_channels = [64, 128, 256, 512]
         model.backbone.init_cfg = None
 
-        from mmdet.registry import MODELS
+        from mmengine.registry import MODELS
+
         detector = MODELS.build(model)
 
         if not torch.cuda.is_available():
@@ -140,7 +142,8 @@ class TestTwoStageMask(TestCase):
         model.neck.in_channels = [64, 128, 256, 512]
         model.backbone.init_cfg = None
 
-        from mmdet.registry import MODELS
+        from mmengine.registry import MODELS
+
         detector = MODELS.build(model)
         self.assertTrue(detector.backbone)
         self.assertTrue(detector.neck)
@@ -166,7 +169,8 @@ class TestTwoStageMask(TestCase):
         model.neck.in_channels = [64, 128, 256, 512]
         model.backbone.init_cfg = None
 
-        from mmdet.registry import MODELS
+        from mmengine.registry import MODELS
+
         detector = MODELS.build(model)
 
         if not torch.cuda.is_available():
@@ -192,7 +196,8 @@ class TestTwoStageMask(TestCase):
         model.neck.in_channels = [64, 128, 256, 512]
         model.backbone.init_cfg = None
 
-        from mmdet.registry import MODELS
+        from mmengine.registry import MODELS
+
         detector = MODELS.build(model)
 
         if not torch.cuda.is_available():

@@ -11,13 +11,12 @@ from typing import List, Tuple, Union
 
 import torch
 import torch.nn as nn
-from mmengine.config import ConfigDict
-from mmengine.structures import InstanceData
-from torch import Tensor
-
-from mmdet.registry import MODELS, TASK_UTILS
 from mmdet.structures.bbox import bbox_cxcywh_to_xyxy, bbox_xyxy_to_cxcywh
 from mmdet.utils import ConfigType
+from mmengine.config import ConfigDict
+from mmengine.registry import MODELS, TASK_UTILS
+from mmengine.structures import InstanceData
+from torch import Tensor
 
 
 @TASK_UTILS.register_module()

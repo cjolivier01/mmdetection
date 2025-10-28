@@ -7,13 +7,14 @@ from mmcv.cnn import build_activation_layer, build_norm_layer
 from mmcv.cnn.bricks.transformer import FFN, MultiheadAttention
 from mmengine.config import ConfigDict
 from mmengine.model import bias_init_with_prob
+from mmengine.registry import MODELS
 from torch import Tensor
 
 from mmdet.models.losses import accuracy
 from mmdet.models.task_modules import SamplingResult
 from mmdet.models.utils import multi_apply
-from mmdet.registry import MODELS
 from mmdet.utils import ConfigType, OptConfigType, reduce_mean
+
 from .bbox_head import BBoxHead
 
 

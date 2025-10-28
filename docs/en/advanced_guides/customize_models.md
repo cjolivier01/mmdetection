@@ -21,7 +21,7 @@ Create a new file `mmdet/models/backbones/mobilenet.py`.
 ```python
 import torch.nn as nn
 
-from mmdet.registry import MODELS
+from mmengine.registry import MODELS
 
 
 @MODELS.register_module()
@@ -73,7 +73,7 @@ Create a new file `mmdet/models/necks/pafpn.py`.
 ```python
 import torch.nn as nn
 
-from mmdet.registry import MODELS
+from mmengine.registry import MODELS
 
 @MODELS.register_module()
 class PAFPN(nn.Module):
@@ -137,7 +137,7 @@ from mmengine.model import BaseModule, ModuleList
 from torch import Tensor
 
 from mmdet.models.backbones.resnet import Bottleneck
-from mmdet.registry import MODELS
+from mmengine.registry import MODELS
 from mmdet.utils import ConfigType, MultiConfig, OptConfigType, OptMultiConfig
 from .bbox_head import BBoxHead
 
@@ -189,7 +189,7 @@ from typing import List, Optional, Tuple
 import torch
 from torch import Tensor
 
-from mmdet.registry import MODELS, TASK_UTILS
+from mmengine.registry import MODELS, TASK_UTILS
 from mmdet.structures import DetDataSample
 from mmdet.structures.bbox import bbox2roi
 from mmdet.utils import ConfigType, InstanceList
@@ -253,7 +253,7 @@ from typing import Tuple
 
 from torch import Tensor
 
-from mmdet.registry import MODELS
+from mmengine.registry import MODELS
 from .standard_roi_head import StandardRoIHead
 
 
@@ -357,7 +357,7 @@ The decorator `weighted_loss` enable the loss to be weighted for each element.
 import torch
 import torch.nn as nn
 
-from mmdet.registry import MODELS
+from mmengine.registry import MODELS
 from .utils import weighted_loss
 
 @weighted_loss

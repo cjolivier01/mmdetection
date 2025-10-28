@@ -3,8 +3,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from mmcv.cnn.bricks.wrappers import NewEmptyTensorOp, obsolete_torch_version
-
-from mmdet.registry import MODELS
+from mmengine.registry import MODELS
 
 if torch.__version__ == 'parrots':
     TORCH_VERSION = torch.__version__

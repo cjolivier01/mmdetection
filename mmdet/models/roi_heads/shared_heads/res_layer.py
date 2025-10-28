@@ -3,10 +3,10 @@ import warnings
 
 import torch.nn as nn
 from mmengine.model import BaseModule
+from mmengine.registry import MODELS
 
 from mmdet.models.backbones import ResNet
 from mmdet.models.layers import ResLayer as _ResLayer
-from mmdet.registry import MODELS
 
 
 @MODELS.register_module()

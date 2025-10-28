@@ -4,13 +4,12 @@ import torch.utils.checkpoint as cp
 from mmcv.cnn import build_conv_layer, build_norm_layer
 from mmengine.logging import MMLogger
 from mmengine.model import Sequential, constant_init, kaiming_init
+from mmengine.registry import MODELS
 from mmengine.runner.checkpoint import load_checkpoint
 from torch.nn.modules.batchnorm import _BatchNorm
 
-from mmdet.registry import MODELS
-from .resnet import BasicBlock
+from .resnet import BasicBlock, ResNet
 from .resnet import Bottleneck as _Bottleneck
-from .resnet import ResNet
 
 
 class Bottleneck(_Bottleneck):

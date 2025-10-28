@@ -1,12 +1,11 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 from typing import Dict, List
 
-from torch import Tensor
-
 from mmdet.models.dense_heads.dino_head import DINOHead
 from mmdet.models.utils import multi_apply
-from mmdet.registry import MODELS
 from mmdet.utils import InstanceList, OptInstanceList
+from mmengine.registry import MODELS
+from torch import Tensor
 
 
 @MODELS.register_module()

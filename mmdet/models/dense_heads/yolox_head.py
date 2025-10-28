@@ -9,13 +9,19 @@ from mmcv.cnn import ConvModule, DepthwiseSeparableConvModule
 from mmcv.ops.nms import batched_nms
 from mmengine.config import ConfigDict
 from mmengine.model import bias_init_with_prob
+from mmengine.registry import MODELS, TASK_UTILS
 from mmengine.structures import InstanceData
 from torch import Tensor
 
-from mmdet.registry import MODELS, TASK_UTILS
 from mmdet.structures.bbox import bbox_xyxy_to_cxcywh
-from mmdet.utils import (ConfigType, OptConfigType, OptInstanceList,
-                         OptMultiConfig, reduce_mean)
+from mmdet.utils import (
+    ConfigType,
+    OptConfigType,
+    OptInstanceList,
+    OptMultiConfig,
+    reduce_mean,
+)
+
 from ..task_modules.prior_generators import MlvlPointGenerator
 from ..task_modules.samplers import PseudoSampler
 from ..utils import multi_apply

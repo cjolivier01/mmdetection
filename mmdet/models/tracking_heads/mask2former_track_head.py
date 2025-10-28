@@ -10,16 +10,22 @@ from mmcv.cnn import Conv2d
 from mmcv.ops import point_sample
 from mmengine.model import ModuleList
 from mmengine.model.weight_init import caffe2_xavier_init
+from mmengine.registry import MODELS, TASK_UTILS
 from mmengine.structures import InstanceData
 from torch import Tensor
 
 from mmdet.models.dense_heads import AnchorFreeHead, MaskFormerHead
 from mmdet.models.utils import get_uncertain_point_coords_with_randomness
-from mmdet.registry import MODELS, TASK_UTILS
 from mmdet.structures import TrackDataSample, TrackSampleList
 from mmdet.structures.mask import mask2bbox
-from mmdet.utils import (ConfigType, InstanceList, OptConfigType,
-                         OptMultiConfig, reduce_mean)
+from mmdet.utils import (
+    ConfigType,
+    InstanceList,
+    OptConfigType,
+    OptMultiConfig,
+    reduce_mean,
+)
+
 from ..layers import Mask2FormerTransformerDecoder
 
 

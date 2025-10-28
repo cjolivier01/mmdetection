@@ -2,9 +2,9 @@
 from typing import Optional, Tuple
 
 import torch.nn.functional as F
+from mmengine.registry import MODELS
 from torch import Tensor
 
-from mmdet.registry import MODELS
 from .fpn import FPN
 
 

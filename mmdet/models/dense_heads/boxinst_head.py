@@ -3,12 +3,13 @@ from typing import List
 
 import torch
 import torch.nn.functional as F
-from mmengine import MessageHub
+from mmengine.registry import MODELS
 from mmengine.structures import InstanceData
 from torch import Tensor
 
-from mmdet.registry import MODELS
 from mmdet.utils import InstanceList
+from mmengine import MessageHub
+
 from ..utils.misc import unfold_wo_center
 from .condinst_head import CondInstBboxHead, CondInstMaskHead
 

@@ -3,12 +3,11 @@ import unittest
 from unittest import TestCase
 
 import torch
-from mmengine.config import Config
-from parameterized import parameterized
-
-from mmdet.registry import MODELS
 from mmdet.testing import demo_mm_inputs, demo_mm_proposals
 from mmdet.utils import register_all_modules
+from mmengine.config import Config
+from mmengine.registry import MODELS
+from parameterized import parameterized
 
 register_all_modules()
 

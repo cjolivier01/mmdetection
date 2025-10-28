@@ -3,12 +3,16 @@ from typing import Dict, Tuple
 
 import torch
 import torch.nn.functional as F
+from mmengine.registry import MODELS
 from torch import Tensor, nn
 
-from mmdet.registry import MODELS
 from mmdet.structures import OptSampleList
-from ..layers import (DetrTransformerDecoder, DetrTransformerEncoder,
-                      SinePositionalEncoding)
+
+from ..layers import (
+    DetrTransformerDecoder,
+    DetrTransformerEncoder,
+    SinePositionalEncoding,
+)
 from .base_detr import DetectionTransformer
 
 

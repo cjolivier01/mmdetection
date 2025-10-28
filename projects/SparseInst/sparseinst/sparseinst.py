@@ -3,14 +3,13 @@ from typing import List, Tuple, Union
 
 import torch
 import torch.nn.functional as F
-from mmengine.structures import InstanceData
-from torch import Tensor
-
 from mmdet.models import BaseDetector
 from mmdet.models.utils import unpack_gt_instances
-from mmdet.registry import MODELS
 from mmdet.structures import OptSampleList, SampleList
 from mmdet.utils import ConfigType, OptConfigType
+from mmengine.registry import MODELS
+from mmengine.structures import InstanceData
+from torch import Tensor
 
 
 @torch.jit.script

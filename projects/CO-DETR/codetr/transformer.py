@@ -4,16 +4,17 @@ import warnings
 import torch
 import torch.nn as nn
 from mmcv.cnn import build_norm_layer
-from mmcv.cnn.bricks.transformer import (BaseTransformerLayer,
-                                         TransformerLayerSequence,
-                                         build_transformer_layer_sequence)
+from mmcv.cnn.bricks.transformer import (
+    BaseTransformerLayer,
+    TransformerLayerSequence,
+    build_transformer_layer_sequence,
+)
 from mmcv.ops import MultiScaleDeformableAttention
+from mmdet.models.layers.transformer import inverse_sigmoid
 from mmengine.model import BaseModule
 from mmengine.model.weight_init import xavier_init
+from mmengine.registry import MODELS
 from torch.nn.init import normal_
-
-from mmdet.models.layers.transformer import inverse_sigmoid
-from mmdet.registry import MODELS
 
 try:
     from fairscale.nn.checkpoint import checkpoint_wrapper

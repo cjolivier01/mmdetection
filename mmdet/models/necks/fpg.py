@@ -3,8 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from mmcv.cnn import ConvModule
 from mmengine.model import BaseModule
-
-from mmdet.registry import MODELS
+from mmengine.registry import MODELS
 
 
 class Transition(BaseModule):

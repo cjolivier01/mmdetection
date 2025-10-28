@@ -3,11 +3,10 @@ import unittest
 
 import pytest
 import torch
-from mmengine.config import ConfigDict
-
 from mmdet.models.layers import DropBlock
-from mmdet.registry import MODELS
 from mmdet.utils import register_all_modules
+from mmengine.config import ConfigDict
+from mmengine.registry import MODELS
 
 register_all_modules()
 

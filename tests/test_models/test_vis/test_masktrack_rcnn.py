@@ -4,12 +4,10 @@ import unittest
 from unittest import TestCase
 
 import torch
-from mmengine.logging import MessageHub
-from mmengine.registry import init_default_scope
-from parameterized import parameterized
-
-from mmdet.registry import MODELS
 from mmdet.testing import demo_track_inputs, get_detector_cfg
+from mmengine.logging import MessageHub
+from mmengine.registry import MODELS, init_default_scope
+from parameterized import parameterized
 
 
 class TestMaskTrackRCNN(TestCase):

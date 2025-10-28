@@ -4,11 +4,12 @@ from typing import List
 import torch
 import torch.nn as nn
 from mmengine.config import ConfigDict
+from mmengine.registry import MODELS
 from torch import Tensor
 
 from mmdet.models.task_modules import SamplingResult
-from mmdet.registry import MODELS
 from mmdet.utils import ConfigType, InstanceList, OptConfigType, reduce_mean
+
 from .fcn_mask_head import FCNMaskHead
 
 

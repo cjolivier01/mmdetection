@@ -6,10 +6,11 @@ import torch
 import torch.nn as nn
 from mmcv.cnn import ConvModule, DepthwiseSeparableConvModule
 from mmengine.model import BaseModule
+from mmengine.registry import MODELS
 from torch import Tensor
 
-from mmdet.registry import MODELS
 from mmdet.utils import ConfigType, OptMultiConfig
+
 from ..layers import CSPLayer
 
 

@@ -3,18 +3,17 @@ import json
 from typing import List, Optional
 
 import torch
-from mmengine.config import ConfigDict
-from mmengine.structures import InstanceData
-from torch import Tensor
-from torch.nn import functional as F
-
 from mmdet.models.layers import multiclass_nms
 from mmdet.models.losses import accuracy
 from mmdet.models.roi_heads.bbox_heads import Shared2FCBBoxHead
 from mmdet.models.utils import empty_instances
-from mmdet.registry import MODELS
 from mmdet.structures.bbox import get_box_tensor, scale_boxes
 from mmdet.utils import ConfigType, InstanceList
+from mmengine.config import ConfigDict
+from mmengine.registry import MODELS
+from mmengine.structures import InstanceData
+from torch import Tensor
+from torch.nn import functional as F
 
 
 def load_class_freq(path='datasets/metadata/lvis_v1_train_cat_info.json',

@@ -2,10 +2,9 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from mmengine.registry import MODELS
 from mmengine.utils import digit_version
 from torch import Tensor
-
-from mmdet.registry import MODELS
 
 MODELS.register_module('Linear', module=nn.Linear)
 

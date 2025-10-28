@@ -7,12 +7,12 @@ import torch.nn as nn
 from mmcv.cnn import Conv2d, Linear, MaxPool2d
 from mmengine.config import ConfigDict
 from mmengine.model import BaseModule
+from mmengine.registry import MODELS
 from mmengine.structures import InstanceData
 from torch import Tensor
 from torch.nn.modules.utils import _pair
 
 from mmdet.models.task_modules.samplers import SamplingResult
-from mmdet.registry import MODELS
 from mmdet.utils import ConfigType, InstanceList, OptMultiConfig
 
 

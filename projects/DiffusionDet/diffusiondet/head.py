@@ -19,15 +19,18 @@ import torch.nn as nn
 import torch.nn.functional as F
 from mmcv.cnn import build_activation_layer
 from mmcv.ops import batched_nms
+from mmdet.structures import SampleList
+from mmdet.structures.bbox import (
+    bbox2roi,
+    bbox_cxcywh_to_xyxy,
+    bbox_xyxy_to_cxcywh,
+    get_box_wh,
+    scale_boxes,
+)
+from mmdet.utils import InstanceList
+from mmengine.registry import MODELS, TASK_UTILS
 from mmengine.structures import InstanceData
 from torch import Tensor
-
-from mmdet.registry import MODELS, TASK_UTILS
-from mmdet.structures import SampleList
-from mmdet.structures.bbox import (bbox2roi, bbox_cxcywh_to_xyxy,
-                                   bbox_xyxy_to_cxcywh, get_box_wh,
-                                   scale_boxes)
-from mmdet.utils import InstanceList
 
 _DEFAULT_SCALE_CLAMP = math.log(100000.0 / 16)
 

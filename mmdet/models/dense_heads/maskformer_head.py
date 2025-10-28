@@ -6,14 +6,20 @@ import torch.nn as nn
 import torch.nn.functional as F
 from mmcv.cnn import Conv2d
 from mmengine.model import caffe2_xavier_init
+from mmengine.registry import MODELS, TASK_UTILS
 from mmengine.structures import InstanceData, PixelData
 from torch import Tensor
 
 from mmdet.models.layers.pixel_decoder import PixelDecoder
-from mmdet.registry import MODELS, TASK_UTILS
 from mmdet.structures import SampleList
-from mmdet.utils import (ConfigType, InstanceList, OptConfigType,
-                         OptMultiConfig, reduce_mean)
+from mmdet.utils import (
+    ConfigType,
+    InstanceList,
+    OptConfigType,
+    OptMultiConfig,
+    reduce_mean,
+)
+
 from ..layers import DetrTransformerDecoder, SinePositionalEncoding
 from ..utils import multi_apply, preprocess_panoptic_gt
 from .anchor_free_head import AnchorFreeHead

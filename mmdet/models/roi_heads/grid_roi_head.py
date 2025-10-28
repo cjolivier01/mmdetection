@@ -2,12 +2,13 @@
 from typing import List, Optional, Tuple
 
 import torch
+from mmengine.registry import MODELS
 from torch import Tensor
 
-from mmdet.registry import MODELS
 from mmdet.structures import SampleList
 from mmdet.structures.bbox import bbox2roi
 from mmdet.utils import ConfigType, InstanceList
+
 from ..task_modules.samplers import SamplingResult
 from ..utils.misc import unpack_gt_instances
 from .standard_roi_head import StandardRoIHead

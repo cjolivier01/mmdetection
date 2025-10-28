@@ -6,19 +6,30 @@ import torch.nn as nn
 import torch.nn.functional as F
 from mmcv.cnn import ConvModule, Scale
 from mmcv.ops import deform_conv2d
-from mmengine import MessageHub
 from mmengine.config import ConfigDict
 from mmengine.model import bias_init_with_prob, normal_init
+from mmengine.registry import MODELS, TASK_UTILS
 from mmengine.structures import InstanceData
 from torch import Tensor
 
-from mmdet.registry import MODELS, TASK_UTILS
 from mmdet.structures.bbox import distance2bbox
-from mmdet.utils import (ConfigType, InstanceList, OptConfigType,
-                         OptInstanceList, reduce_mean)
+from mmdet.utils import (
+    ConfigType,
+    InstanceList,
+    OptConfigType,
+    OptInstanceList,
+    reduce_mean,
+)
+from mmengine import MessageHub
+
 from ..task_modules.prior_generators import anchor_inside_flags
-from ..utils import (filter_scores_and_topk, images_to_levels, multi_apply,
-                     sigmoid_geometric_mean, unmap)
+from ..utils import (
+    filter_scores_and_topk,
+    images_to_levels,
+    multi_apply,
+    sigmoid_geometric_mean,
+    unmap,
+)
 from .atss_head import ATSSHead
 
 

@@ -3,15 +3,15 @@ import copy
 from typing import List, Optional, Tuple
 
 import torch
+from mmengine.registry import MODELS
 from mmengine.structures import InstanceData
 from torch import Tensor
 
-from mmdet.models.utils import (filter_gt_instances, rename_loss_dict,
-                                reweight_loss_dict)
-from mmdet.registry import MODELS
+from mmdet.models.utils import filter_gt_instances, rename_loss_dict, reweight_loss_dict
 from mmdet.structures import SampleList
 from mmdet.structures.bbox import bbox2roi, bbox_project
 from mmdet.utils import ConfigType, InstanceList, OptConfigType, OptMultiConfig
+
 from ..utils.misc import unpack_gt_instances
 from .semi_base import SemiBaseDetector
 

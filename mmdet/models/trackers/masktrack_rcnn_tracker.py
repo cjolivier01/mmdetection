@@ -2,12 +2,13 @@
 from typing import List
 
 import torch
+from mmengine.registry import MODELS
 from mmengine.structures import InstanceData
 from torch import Tensor
 
-from mmdet.registry import MODELS
 from mmdet.structures import DetDataSample
 from mmdet.structures.bbox import bbox_overlaps
+
 from .base_tracker import BaseTracker
 
 
