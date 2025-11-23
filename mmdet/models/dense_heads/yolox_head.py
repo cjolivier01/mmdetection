@@ -21,7 +21,6 @@ from mmdet.utils import (
     OptMultiConfig,
     reduce_mean,
 )
-
 from ..task_modules.prior_generators import MlvlPointGenerator
 from ..task_modules.samplers import PseudoSampler
 from ..utils import multi_apply
@@ -101,6 +100,7 @@ class YOLOXHead(BaseDenseHead):
             type='L1Loss', reduction='sum', loss_weight=1.0),
         train_cfg: OptConfigType = None,
         test_cfg: OptConfigType = None,
+        static_detections: Optional[ConfigDict] = None,
         init_cfg: OptMultiConfig = dict(
             type='Kaiming',
             layer='Conv2d',
@@ -143,6 +143,18 @@ class YOLOXHead(BaseDenseHead):
             self.assigner = TASK_UTILS.build(self.train_cfg['assigner'])
             # YOLOX does not support sampling
             self.sampler = PseudoSampler()
+
+        # Optional static-shape inference to avoid dynamic mask-based selects
+        static_cfg = ConfigDict(static_detections) if static_detections else None
+        self.static_det_enabled = bool(
+            static_cfg.get('enable', False)) if static_cfg else False
+        self.static_det_max = int(
+            static_cfg.get('max_detections', 0)
+            or 0) if static_cfg else 0
+        self.static_det_store_num = bool(
+            static_cfg.get('store_num_valid', True)) if static_cfg else True
+        self.static_det_pad_after_nms = bool(
+            static_cfg.get('pad_after_nms', True)) if static_cfg else True
 
         self._init_layers()
 
@@ -234,6 +246,20 @@ class YOLOXHead(BaseDenseHead):
                            self.multi_level_conv_reg,
                            self.multi_level_conv_obj)
 
+    def set_static_detections(self,
+                              enable: bool = True,
+                              max_detections: Optional[int] = None,
+                              store_num_valid: Optional[bool] = None,
+                              pad_after_nms: Optional[bool] = None) -> None:
+        """Toggle static detection output to avoid dynamic mask shapes."""
+        self.static_det_enabled = bool(enable)
+        if max_detections is not None:
+            self.static_det_max = int(max_detections)
+        if store_num_valid is not None:
+            self.static_det_store_num = bool(store_num_valid)
+        if pad_after_nms is not None:
+            self.static_det_pad_after_nms = bool(pad_after_nms)
+
     def predict_by_feat(self,
                         cls_scores: List[Tensor],
                         bbox_preds: List[Tensor],
@@ -311,21 +337,73 @@ class YOLOXHead(BaseDenseHead):
         result_list = []
         for img_id, img_meta in enumerate(batch_img_metas):
             max_scores, labels = torch.max(flatten_cls_scores[img_id], 1)
-            valid_mask = flatten_objectness[
-                img_id] * max_scores >= cfg.score_thr
-            results = InstanceData(
-                bboxes=flatten_bboxes[img_id][valid_mask],
-                scores=max_scores[valid_mask] *
-                flatten_objectness[img_id][valid_mask],
-                labels=labels[valid_mask])
+            scores = flatten_objectness[img_id] * max_scores
 
-            result_list.append(
-                self._bbox_post_process(
-                    results=results,
-                    cfg=cfg,
-                    rescale=rescale,
-                    with_nms=with_nms,
-                    img_meta=img_meta))
+            if self.static_det_enabled:
+                valid_mask = scores >= cfg.score_thr
+                max_det = self.static_det_max or cfg.get('max_per_img',
+                                                         scores.size(0))
+                max_det = int(max_det)
+                if max_det <= 0:
+                    empty = InstanceData(
+                        bboxes=flatten_bboxes[img_id].new_zeros((0, 4)),
+                        scores=scores.new_zeros((0, )),
+                        labels=labels.new_zeros((0, ),
+                                                dtype=labels.dtype))
+                    result_list.append(
+                        self._bbox_post_process(
+                            results=empty,
+                            cfg=cfg,
+                            rescale=rescale,
+                            with_nms=with_nms,
+                            img_meta=img_meta,
+                            static_max_detections=0))
+                    continue
+
+                masked_scores = scores.masked_fill(
+                    ~valid_mask, float('-inf'))
+                max_det = min(max_det, masked_scores.size(0))
+                topk_scores, topk_inds = torch.topk(
+                    masked_scores, k=max_det, dim=0)
+                topk_bboxes = torch.gather(
+                    flatten_bboxes[img_id], 0,
+                    topk_inds.unsqueeze(-1).expand(-1, 4))
+                topk_labels = torch.gather(labels, 0, topk_inds)
+                results = InstanceData(
+                    bboxes=topk_bboxes,
+                    scores=topk_scores,
+                    labels=topk_labels)
+                if self.static_det_store_num:
+                    results.set_metainfo(
+                        dict(
+                            num_valid_before_nms=valid_mask.sum(),
+                            max_detections=max_det,
+                            static_detections=True,
+                        )
+                    )
+                result_list.append(
+                    self._bbox_post_process(
+                        results=results,
+                        cfg=cfg,
+                        rescale=rescale,
+                        with_nms=with_nms,
+                        img_meta=img_meta,
+                        static_max_detections=max_det
+                        if self.static_det_pad_after_nms else None))
+            else:
+                valid_mask = scores >= cfg.score_thr
+                results = InstanceData(
+                    bboxes=flatten_bboxes[img_id][valid_mask],
+                    scores=scores[valid_mask],
+                    labels=labels[valid_mask])
+
+                result_list.append(
+                    self._bbox_post_process(
+                        results=results,
+                        cfg=cfg,
+                        rescale=rescale,
+                        with_nms=with_nms,
+                        img_meta=img_meta))
 
         return result_list
 
@@ -359,7 +437,9 @@ class YOLOXHead(BaseDenseHead):
                            cfg: ConfigDict,
                            rescale: bool = False,
                            with_nms: bool = True,
-                           img_meta: Optional[dict] = None) -> InstanceData:
+                           img_meta: Optional[dict] = None,
+                           static_max_detections: Optional[int] = None
+                           ) -> InstanceData:
         """bbox post-processing method.
 
         The boxes would be rescaled to the original image scale and do
@@ -391,16 +471,90 @@ class YOLOXHead(BaseDenseHead):
 
         if rescale:
             assert img_meta.get('scale_factor') is not None
-            results.bboxes /= results.bboxes.new_tensor(
-                img_meta['scale_factor']).repeat((1, 2))
+            sf = img_meta["scale_factor"]
+            sx = float(sf[0])
+            sy = float(sf[1])
+            results.bboxes /= (
+                torch.tensor((sx, sy), dtype=results.bboxes.dtype)
+                .to(results.bboxes.device, non_blocking=True)
+                .repeat((1, 2))
+            )
+            # results.bboxes /= torch.tensor(
+            #     float(img_meta['scale_factor'])).repeat((1, 2))
+            # results.bboxes /= results.bboxes.new_tensor([sx, sy]).repeat((1, 2))
 
         if with_nms and results.bboxes.numel() > 0:
             det_bboxes, keep_idxs = batched_nms(results.bboxes, results.scores,
                                                 results.labels, cfg.nms)
-            results = results[keep_idxs]
-            # some nms would reweight the score, such as softnms
-            results.scores = det_bboxes[:, -1]
+            if static_max_detections is None:
+                results = results[keep_idxs]
+                # some nms would reweight the score, such as softnms
+                results.scores = det_bboxes[:, -1]
+            else:
+                keep_bboxes = det_bboxes[:, :-1]
+                keep_scores = det_bboxes[:, -1]
+                keep_labels = results.labels[keep_idxs]
+                valid_after = torch.isfinite(keep_scores).sum()
+                num_keep = min(keep_bboxes.shape[0], int(static_max_detections))
+                results = self._pad_static_results(
+                    keep_bboxes=keep_bboxes,
+                    keep_scores=keep_scores,
+                    keep_labels=keep_labels,
+                    num_keep=num_keep,
+                    pad_to=static_max_detections,
+                    template=results,
+                    num_valid_after_nms=valid_after)
+        elif static_max_detections is not None:
+            valid_after = torch.isfinite(results.scores).sum()
+            num_keep = min(results.bboxes.shape[0], int(static_max_detections))
+            results = self._pad_static_results(
+                keep_bboxes=results.bboxes,
+                keep_scores=results.scores,
+                keep_labels=results.labels,
+                num_keep=num_keep,
+                pad_to=static_max_detections,
+                template=results,
+                num_valid_after_nms=valid_after)
         return results
+
+    def _pad_static_results(self,
+                            keep_bboxes: Tensor,
+                            keep_scores: Tensor,
+                            keep_labels: Tensor,
+                            num_keep: int,
+                            pad_to: int,
+                            template: InstanceData,
+                            num_valid_after_nms: Optional[Tensor] = None
+                            ) -> InstanceData:
+        """Build padded InstanceData for static-shape inference."""
+        pad_to = int(pad_to)
+        padded_bboxes = keep_bboxes.new_zeros((pad_to, 4))
+        padded_scores = keep_scores.new_full((pad_to, ),
+                                             float('-inf'),
+                                             dtype=keep_scores.dtype)
+        padded_labels = keep_labels.new_full((pad_to, ),
+                                             -1,
+                                             dtype=keep_labels.dtype)
+        if num_keep > 0:
+            padded_bboxes[:num_keep] = keep_bboxes[:num_keep]
+            padded_scores[:num_keep] = keep_scores[:num_keep]
+            padded_labels[:num_keep] = keep_labels[:num_keep]
+
+        padded = InstanceData(
+            bboxes=padded_bboxes, scores=padded_scores, labels=padded_labels)
+
+        for name in ('num_valid_before_nms', 'static_detections'):
+            if hasattr(template, name):
+                # setattr(padded, name, getattr(template, name))
+                padded.set_metainfo({name: getattr(template, name)})
+        padded.set_metainfo(dict(max_detections=pad_to))
+        if num_valid_after_nms is not None:
+            num_valid_after_nms = torch.minimum(
+                num_valid_after_nms,
+                num_valid_after_nms.new_tensor(pad_to,
+                                               dtype=num_valid_after_nms.dtype))
+            padded.set_metainfo(dict(num_valid_after_nms=num_valid_after_nms))
+        return padded
 
     def loss_by_feat(
             self,
