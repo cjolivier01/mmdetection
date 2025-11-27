@@ -514,7 +514,8 @@ class YOLOXHead(BaseDenseHead):
                 num_keep=num_keep,
                 pad_to=static_max_detections,
                 template=results,
-                num_valid_after_nms=valid_after)
+                num_valid_after_nms=valid_after if with_nms else None,
+            )
         return results
 
     def _pad_static_results(self,
