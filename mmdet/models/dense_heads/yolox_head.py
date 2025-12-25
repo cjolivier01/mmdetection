@@ -2,6 +2,7 @@
 import math
 from typing import List, Optional, Sequence, Tuple, Union
 
+import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -472,13 +473,17 @@ class YOLOXHead(BaseDenseHead):
         if rescale:
             assert img_meta.get('scale_factor') is not None
             sf = img_meta["scale_factor"]
-            sx = float(sf[0])
-            sy = float(sf[1])
-            results.bboxes /= (
-                torch.tensor((sx, sy), dtype=results.bboxes.dtype)
-                .to(results.bboxes.device, non_blocking=True)
-                .repeat((1, 2))
-            )
+            if isinstance(sf, (list, tuple, np.ndarray)):
+                sx = float(sf[0])
+                sy = float(sf[1])
+                scale = (
+                    torch.tensor((sx, sy), dtype=results.bboxes.dtype)
+                    .to(results.bboxes.device, non_blocking=True)
+                    .repeat((1, 2))
+                )
+            else:
+                scale = sf.repeat((1, 2))
+            results.bboxes /= scale
             # results.bboxes /= torch.tensor(
             #     float(img_meta['scale_factor'])).repeat((1, 2))
             # results.bboxes /= results.bboxes.new_tensor([sx, sy]).repeat((1, 2))
