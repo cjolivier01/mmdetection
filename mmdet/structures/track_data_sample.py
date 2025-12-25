@@ -116,8 +116,10 @@ class TrackDataSample(BaseDataElement):
         assert isinstance(value, list), 'video_data_samples must be a list'
         assert isinstance(
             value[0], DetDataSample
-        ), 'video_data_samples must be a list of DetDataSample, but got '
-        f'{value[0]}'
+        ), (
+            'video_data_samples must be a list of DetDataSample, but got '
+            f'{type(value[0])}'
+        )
         self.set_field(value, '_video_data_samples', dtype=list)
 
     @video_data_samples.deleter
