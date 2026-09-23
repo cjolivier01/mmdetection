@@ -3,6 +3,7 @@ from .base_video_metric import BaseVideoMetric
 from .cityscapes_metric import CityScapesMetric
 from .coco_caption_metric import COCOCaptionMetric
 from .coco_metric import CocoMetric
+from .coco_ice_rink_metric import CocoIceRinkMetric
 from .coco_occluded_metric import CocoOccludedSeparatedMetric
 from .coco_panoptic_metric import CocoPanopticMetric
 from .coco_video_metric import CocoVideoMetric
@@ -25,7 +26,7 @@ from .voc_metric import VOCMetric
 from .youtube_vis_metric import YouTubeVISMetric
 
 __all__ = [
-    'CityScapesMetric', 'CocoMetric', 'CocoPanopticMetric', 'OpenImagesMetric',
+    'CityScapesMetric', 'CocoMetric', 'CocoIceRinkMetric', 'CocoPanopticMetric', 'OpenImagesMetric',
     'VOCMetric', 'LVISMetric', 'CrowdHumanMetric', 'DumpProposals',
     'CocoOccludedSeparatedMetric', 'DumpDetResults', 'BaseVideoMetric',
     'MOTChallengeMetric', 'CocoVideoMetric', 'ReIDMetrics', 'YouTubeVISMetric',

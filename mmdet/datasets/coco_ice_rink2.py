@@ -30,7 +30,7 @@ class CocoIceRink2Dataset(BaseDetDataset):
         # "perspon" is usually the first class, but we need to make it forget about people,
         # because this will cause holes in the ice (where people are), which will be
         # both annoying and problematic down the road.
-        "classes": ("Ice-rink"),
+        "classes": ("Ice-rink",),
         # palette is a list of color tuples, which is used for visualization.
         # We keep the larger palette because some COCO models will still sometimes
         # find a class that we don't care about, but haven;t gottent he model to
@@ -138,7 +138,12 @@ class CocoIceRink2Dataset(BaseDetDataset):
             self.coco = self.COCOAPI(local_path)
         # The order of returned `cat_ids` will not
         # change with the order of the `classes`
-        self.cat_ids = self.coco.get_cat_ids(cat_names=self.metainfo["classes"])
+        candidate_cat_ids = self.coco.get_cat_ids(
+            cat_names=self.metainfo["classes"])
+        self.cat_ids = [
+            cat_id for cat_id in candidate_cat_ids
+            if self.coco.get_ann_ids(cat_ids=[cat_id])
+        ]
         self.cat2label = {cat_id: i for i, cat_id in enumerate(self.cat_ids)}
         self.cat_img_map = copy.deepcopy(self.coco.cat_img_map)
 

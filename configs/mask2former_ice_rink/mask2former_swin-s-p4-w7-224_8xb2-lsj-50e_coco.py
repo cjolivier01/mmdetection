@@ -40,3 +40,11 @@ custom_keys.update(
 )
 # optimizer
 optim_wrapper = dict(paramwise_cfg=dict(custom_keys=custom_keys, norm_decay_mult=0.0))
+
+# Extend this training run from 30,000 to 60,000 iterations.
+train_cfg = dict(
+    type="IterBasedTrainLoop",
+    max_iters=60000,
+    val_interval=1500,
+    dynamic_intervals=None,
+)

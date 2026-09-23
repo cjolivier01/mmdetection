@@ -1,7 +1,7 @@
 # _base_ = ['./mask2former_r50_8xb2-lsj-50e_coco-panoptic.py']
 _base_ = ["../mask2former/mask2former_r50_8xb2-lsj-50e_coco-panoptic.py"]
 
-num_things_classes = 80  # Just an ice rink
+num_things_classes = 1
 num_stuff_classes = 0
 num_classes = num_things_classes + num_stuff_classes
 
@@ -122,7 +122,7 @@ val_dataloader = dict(
 
 val_evaluator = dict(
     _delete_=True,
-    type="CocoMetric",
+    type="CocoIceRinkMetric",
     ann_file=data_root + "valid/_annotations.coco.json",
     metric=["bbox", "segm"],
     format_only=False,
