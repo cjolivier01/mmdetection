@@ -93,7 +93,10 @@ test_pipeline = [
 
 dataset_type = "CocoRinkLandmarksDataset"
 data_root = "data/HockeyRinkLandmarks/"
-batch_size = 2
+# Measured at bs=2: 14.3 GB torch peak alloc (~17.0 GB incl. CUDA context) and
+# ~6.6 GB per additional sample. bs=3 lands near 23.6 GB on meshy's 32 GB 5090;
+# bs=4 projects to ~30.2 GB, too little margin to trust over a 10-hour run.
+batch_size = 3
 train_dataloader = dict(
     sampler=dict(type="InfiniteSampler"),
     batch_size=batch_size,
