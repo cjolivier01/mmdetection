@@ -26,6 +26,7 @@ from .odvg import ODVGDataset
 from .openimages import OpenImagesChallengeDataset, OpenImagesDataset
 from .refcoco import RefCocoDataset
 from .reid_dataset import ReIDDataset
+from .rink_landmarks import CocoRinkLandmarksDataset
 from .samplers import (
     AspectRatioBatchSampler,
     ClassAwareSampler,
@@ -47,6 +48,7 @@ __all__ = [
     'CityscapesDataset', 'LVISDataset', 'LVISV05Dataset', 'LVISV1Dataset',
     'WIDERFaceDataset', 'get_loading_pipeline', 'CocoPanopticDataset',
     "CocoIceRinkDataset", "CocoIceRink2Dataset", "CocoIceRinkPanoptic",
+    "CocoRinkLandmarksDataset",
     'MultiImageMixDataset', 'OpenImagesDataset', 'OpenImagesChallengeDataset',
     'AspectRatioBatchSampler', 'ClassAwareSampler', 'MultiSourceSampler',
     'GroupMultiSourceSampler', 'BaseDetDataset', 'CrowdHumanDataset',
